@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage} from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { BookingPage } from '../booking/booking';
 import { HistoryPage } from '../history/history';
 import { ChatPage } from '../chat/chat';
@@ -18,7 +17,6 @@ import { SettingsPage } from '../settings/settings';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  homePage = HomePage;
   bookingPage = BookingPage;
   historyPage = HistoryPage;
   chatPage = ChatPage;

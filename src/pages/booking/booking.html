@@ -1,13 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Booking</ion-title>
+    <ion-title>Pinjam</ion-title>
     <button ion-button menuToggle>
       <img height="30 px" width="30 px" src="../assets/imgs/menu.png"/>
     </button>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-
+  <figure>
+      <img (click)="ruangan()" class="center" height="100 px" width="100 px"
+      id = "btn" src="../assets/imgs/ruangan.png"/>
+      <figcaption>Cari berdasarkan<br>ruangan</figcaption>
+  </figure>
+  <figure>
+      <img (click)="waktu()" class="center" height="100 px" width="100 px"
+      id = "btn" src="../assets/imgs/calendar.png"/>
+      <figcaption>Cari berdasarkan<br>waktu</figcaption>
+  </figure>
 </ion-content>
