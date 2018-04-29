@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage} from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { BookingPage } from '../booking/booking';
 import { HistoryPage } from '../history/history';
 import { ChatPage } from '../chat/chat';
