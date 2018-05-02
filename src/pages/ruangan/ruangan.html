@@ -13,6 +13,17 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+    <ion-list>
+        <ion-item-divider color="light">FMIPA</ion-item-divider>
+        <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+            {{ item }}
+          </button> 
+      </ion-list>
+    <ion-list>
+          <ion-item-divider color="light">FAPERTA</ion-item-divider>
+          <button ion-item *ngFor="let rfaperta of faperta" (click)="itemSelected(rfaperta)">
+              {{ rfaperta }}
+            </button> 
+      </ion-list>
 </ion-content>

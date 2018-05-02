@@ -9,3 +9,10 @@ page-booking {
 .centerr {
     height: 100%;
 }
+
+.vertical-align-content > *
+{
+     display: flex!important;
+     align-content: center!important;
+     align-items: center!important;
+}
