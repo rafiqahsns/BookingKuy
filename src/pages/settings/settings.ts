@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 /**
  * Generated class for the SettingsPage page.
@@ -15,7 +15,7 @@ import { HomePage } from '../home/home';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App, private alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
