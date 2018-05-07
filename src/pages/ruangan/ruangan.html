@@ -16,14 +16,14 @@
 <ion-content>
     <ion-list>
         <ion-item-divider color="light">FMIPA</ion-item-divider>
-        <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+        <button ion-item *ngFor="let item of items" (click)="view(item)">
             {{ item }}
-          </button> 
+          </button>
       </ion-list>
     <ion-list>
           <ion-item-divider color="light">FAPERTA</ion-item-divider>
-          <button ion-item *ngFor="let rfaperta of faperta" (click)="itemSelected(rfaperta)">
+          <button ion-item *ngFor="let rfaperta of faperta" (click)="view(rfaperta)">
               {{ rfaperta }}
-            </button> 
+            </button>
       </ion-list>
 </ion-content>
