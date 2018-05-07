@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 import { TabsPage } from '../pages/tabs/tabs';
 import { BookingPage } from '../pages/booking/booking';
 import { HistoryPage } from '../pages/history/history';
@@ -31,6 +32,7 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     BookingPage,
     HistoryPage,
     HomePage,
+	TutorialPage,
     ChatPage,
     StudentRegisterPage,
     StaffTabsPage,
@@ -53,6 +55,7 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     BookingPage,
     HistoryPage,
     HomePage,
+	TutorialPage,
     StudentLoginPage,
     StudentRegisterPage,
     StaffTabsPage,
