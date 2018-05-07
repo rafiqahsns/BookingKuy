@@ -24,6 +24,9 @@
     <ion-item>
       <ion-label floating>Password</ion-label>
       <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
+      <button ion-button clear item-end (click)='showHide()' style="height:32px;">
+        <ion-icon name="eye" style="font-size:32px;"></ion-icon>
+      </button>
     </ion-item>
   <br>
     <button ion-button block (click)="postRequest()">Login</button>

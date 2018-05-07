@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the SettingsPage page.
  *
@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App, private alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
@@ -27,5 +27,12 @@ export class SettingsPage {
   akun(){
     this.navCtrl.push('AkunPage');
   }
-  
+  logout(){
+    let alert = this.alertCtrl.create({
+      title: 'Logout Successful',
+      buttons: ['Ok']
+    });
+    alert.present();
+    this.appCtrl.getRootNav().setRoot(HomePage);
+  }
 }

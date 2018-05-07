@@ -6,8 +6,8 @@
 
 <ion-content padding>
   <img class="circle-pic" src="../assets/imgs/no_pp.jpg"/><br>
-  <ion-title align="center">Nama Lengkap</ion-title><br> 
+  <ion-title align="center">Nama Lengkap</ion-title><br>
   <button (click)="akun()" color="secondary" ion-button block>Profil</button>
   <button (click)="notif()" color="secondary" ion-button block>Notifikasi</button>
-  <button color="secondary" ion-button block>Log Out</button>
+  <button color="secondary" ion-button block (click) = "logout()">Log Out</button>
 </ion-content>

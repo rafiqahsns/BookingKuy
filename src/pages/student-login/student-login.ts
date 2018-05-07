@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { StudentRegisterPage } from '../student-register/student-register';
 import { AuthService } from '../../providers/auth-service/auth-service';
@@ -21,7 +21,7 @@ export class StudentLoginPage {
   responseData : any;
   userData = {"username": "","password": ""};
 
-  constructor(public navCtrl: NavController, public authService : AuthService, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public authService : AuthService, private alertCtrl: AlertController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -53,6 +53,10 @@ export class StudentLoginPage {
   }
   TabsPush(){
     this.navCtrl.push(TabsPage);
+  }
+
+  showHide() {
+    console.log('hi');
   }
 
 

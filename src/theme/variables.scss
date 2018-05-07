@@ -87,3 +87,9 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+@font-face {
+  font-family: 'Bangers';
+  font-style: normal;
+  font-weight: 200;
+  src: url('../assets/fonts/Bangers.ttf');
+}
