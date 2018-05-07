@@ -19,12 +19,12 @@ $app->run();
 /************************* USER LOGIN *************************************/
 /* ### User login ### */
 function login() {
-    
+
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());
-    
+
     try {
-        
+
         $db = getDB();
         $userData ='';
         $sql = "SELECT user_id, name, email, username FROM users WHERE (username=:username or email=:username) and password=:password ";
@@ -35,13 +35,13 @@ function login() {
         $stmt->execute();
         $mainCount=$stmt->rowCount();
         $userData = $stmt->fetch(PDO::FETCH_OBJ);
-        
+
         if(!empty($userData))
         {
             $user_id=$userData->user_id;
             $userData->token = apiToken($user_id);
         }
-        
+
         $db = null;
          if($userData){
                $userData = json_encode($userData);
@@ -50,7 +50,7 @@ function login() {
                echo '{"error":{"text":"Bad request wrong username and password"}}';
             }
 
-           
+
     }
     catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -66,18 +66,17 @@ function signup() {
     $name=$data->name;
     $username=$data->username;
     $password=$data->password;
-    
+
     try {
-        
+
         $username_check = preg_match('~^[A-Za-z0-9_]{3,20}$~i', $username);
         $email_check = preg_match('~^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$~i', $email);
         $password_check = preg_match('~^[A-Za-z0-9!@#$%^&*()_]{6,20}$~i', $password);
-        
-        #echo $email_check.'<br/>'.$email; make this error: Unexpected token < in JSON at position 1
-        
+
+
+
         if (strlen(trim($username))>0 && strlen(trim($password))>0 && strlen(trim($email))>0 && $email_check>0 && $username_check>0 && $password_check>0)
         {
-            #echo 'here'; make this error: Unexpected token < in JSON at position 1
             $db = getDB();
             $userData = '';
             $sql = "SELECT user_id FROM users WHERE username=:username or email=:email";
@@ -89,7 +88,7 @@ function signup() {
             $created=time();
             if($mainCount==0)
             {
-                
+
                 /*Inserting user values*/
                 $sql1="INSERT INTO users(username,password,email,name)VALUES(:username,:password,:email,:name)";
                 $stmt1 = $db->prepare($sql1);
@@ -99,13 +98,13 @@ function signup() {
                 $stmt1->bindParam("email", $email,PDO::PARAM_STR);
                 $stmt1->bindParam("name", $name,PDO::PARAM_STR);
                 $stmt1->execute();
-                
+
                 $userData=internalUserDetails($email);
-                
+
             }
-            
+
             $db = null;
-         
+
 
             if($userData){
                $userData = json_encode($userData);
@@ -114,15 +113,11 @@ function signup() {
                echo '{"error":{"text":"Enter valid data"}}';
             }
 
-           
+
         }
-        else if($username_check<=0){
-			echo '{"error":{"text":"Enter valid username"}}';
-        } else if($email_check<=0){
-			echo '{"error":{"text":"Enter valid email"}}';
-		} else if($password_check<=0){
-			echo '{"error":{"text":"Enter valid password"}}';
-		}
+        else{
+            echo '{"error":{"text":"Enter valid data"}}';
+        }
     }
     catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -135,9 +130,9 @@ function email() {
     $email=$data->email;
 
     try {
-       
+
         $email_check = preg_match('~^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$~i', $email);
-       
+
         if (strlen(trim($email))>0 && $email_check>0)
         {
             $db = getDB();
@@ -150,14 +145,14 @@ function email() {
             $created=time();
             if($mainCount==0)
             {
-                
+
                 /*Inserting user values*/
                 $sql1="INSERT INTO emailUsers(email)VALUES(:email)";
                 $stmt1 = $db->prepare($sql1);
                 $stmt1->bindParam("email", $email,PDO::PARAM_STR);
                 $stmt1->execute();
-                
-                
+
+
             }
             $userData=internalEmailDetails($email);
             $db = null;
@@ -172,7 +167,7 @@ function email() {
             echo '{"error":{"text":"Enter valid data"}}';
         }
     }
-    
+
     catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -181,7 +176,7 @@ function email() {
 
 /* ### internal Username Details ### */
 function internalUserDetails($input) {
-    
+
     try {
         $db = getDB();
         $sql = "SELECT user_id, name, email, username FROM users WHERE username=:input or email=:input";
@@ -192,30 +187,30 @@ function internalUserDetails($input) {
         $usernameDetails->token = apiToken($usernameDetails->user_id);
         $db = null;
         return $usernameDetails;
-        
+
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
-    
+
 }
 
 function getFeed(){
-  
-   
+
+
     try {
-         
+
         if(1){
             $feedData = '';
             $db = getDB();
-          
+
                 $sql = "SELECT * FROM feed  ORDER BY feed_id DESC LIMIT 15";
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
                 $stmt->bindParam("lastCreated", $lastCreated, PDO::PARAM_STR);
-          
+
             $stmt->execute();
             $feedData = $stmt->fetchAll(PDO::FETCH_OBJ);
-           
+
             $db = null;
 
             if($feedData)
@@ -225,7 +220,7 @@ function getFeed(){
         } else{
             echo '{"error":{"text":"No access"}}';
         }
-       
+
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -239,9 +234,9 @@ function feed(){
     $token=$data->token;
     $lastCreated = $data->lastCreated;
     $systemToken=apiToken($user_id);
-   
+
     try {
-         
+
         if($systemToken == $token){
             $feedData = '';
             $db = getDB();
@@ -258,7 +253,7 @@ function feed(){
             }
             $stmt->execute();
             $feedData = $stmt->fetchAll(PDO::FETCH_OBJ);
-           
+
             $db = null;
 
             if($feedData)
@@ -268,7 +263,7 @@ function feed(){
         } else{
             echo '{"error":{"text":"No access"}}';
         }
-       
+
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -282,14 +277,14 @@ function feedUpdate(){
     $user_id=$data->user_id;
     $token=$data->token;
     $feed=$data->feed;
-    
+
     $systemToken=apiToken($user_id);
-   
+
     try {
-         
+
         if($systemToken == $token){
-         
-            
+
+
             $feedData = '';
             $db = getDB();
             $sql = "INSERT INTO feed ( feed, created, user_id_fk) VALUES (:feed,:created,:user_id)";
@@ -299,7 +294,7 @@ function feedUpdate(){
             $created = time();
             $stmt->bindParam("created", $created, PDO::PARAM_INT);
             $stmt->execute();
-            
+
 
 
             $sql1 = "SELECT * FROM feed WHERE user_id_fk=:user_id ORDER BY feed_id DESC LIMIT 1";
@@ -314,7 +309,7 @@ function feedUpdate(){
         } else{
             echo '{"error":{"text":"No access"}}';
         }
-       
+
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -329,11 +324,11 @@ function feedDelete(){
     $user_id=$data->user_id;
     $token=$data->token;
     $feed_id=$data->feed_id;
-    
+
     $systemToken=apiToken($user_id);
-   
+
     try {
-         
+
         if($systemToken == $token){
             $feedData = '';
             $db = getDB();
@@ -342,18 +337,18 @@ function feedDelete(){
             $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
             $stmt->bindParam("feed_id", $feed_id, PDO::PARAM_INT);
             $stmt->execute();
-            
-           
+
+
             $db = null;
             echo '{"success":{"text":"Feed deleted"}}';
         } else{
             echo '{"error":{"text":"No access"}}';
         }
-       
+
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }   
-    
+    }
+
 }
 $app->post('/userImage','userImage'); /* User Details */
 function userImage(){
@@ -387,14 +382,14 @@ function getImages(){
     $data = json_decode($request->getBody());
     $user_id=$data->user_id;
     $token=$data->token;
-    
+
     $systemToken=apiToken($user_id);
     try {
         if(1){
             $db = getDB();
             $sql = "SELECT b64 FROM imagesData";
             $stmt = $db->prepare($sql);
-           
+
             $stmt->execute();
             $imageData = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
