@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { AuthService } from '../../providers/auth-service/auth-service';
 /**
  * Generated class for the SettingsPage page.
  *
@@ -15,7 +16,10 @@ import { HomePage } from '../home/home';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App, private alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
+    private alertCtrl:AlertController, public authService : AuthService) {
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.userData;
   }
 
   ionViewDidLoad() {
