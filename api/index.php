@@ -5,6 +5,7 @@ require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
+$app->post('/item','item');
 $app->post('/login','login'); /* User login */
 $app->post('/signup','signup'); /* User Signup  */
 $app->get('/getFeed','getFeed'); /* User Feeds  */
@@ -15,6 +16,33 @@ $app->post('/getImages', 'getImages');
 
 
 $app->run();
+
+function item(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+
+  try {
+    $db = getDB();
+    $userView ='';
+    $sql = "SELECT id_ruangan, nama, deskripsi, fakultas, penjaga, harga FROM ruangan WHERE nama=:nama ";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
+    $stmt->execute();
+    $mainCount=$stmt->rowCount();
+    $userView = $stmt->fetch(PDO::FETCH_OBJ);
+    $db = null;
+    if($userView){
+          $userView = json_encode($userView);
+           echo '{"userData": ' .$userView . '}';
+       } else {
+          echo '{"error":{"text":"Unknown Ruangan"}}';
+       }
+  }
+  catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+  }
+
+}
 
 /************************* USER LOGIN *************************************/
 /* ### User login ### */
@@ -73,10 +101,11 @@ function signup() {
         $email_check = preg_match('~^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$~i', $email);
         $password_check = preg_match('~^[A-Za-z0-9!@#$%^&*()_]{6,20}$~i', $password);
 
-
+        #echo $email_check.'<br/>'.$email; make this error: Unexpected token < in JSON at position 1
 
         if (strlen(trim($username))>0 && strlen(trim($password))>0 && strlen(trim($email))>0 && $email_check>0 && $username_check>0 && $password_check>0)
         {
+            #echo 'here'; make this error: Unexpected token < in JSON at position 1
             $db = getDB();
             $userData = '';
             $sql = "SELECT user_id FROM users WHERE username=:username or email=:email";
@@ -115,9 +144,13 @@ function signup() {
 
 
         }
-        else{
-            echo '{"error":{"text":"Enter valid data"}}';
-        }
+        else if($username_check<=0){
+			echo '{"error":{"text":"Enter valid username"}}';
+        } else if($email_check<=0){
+			echo '{"error":{"text":"Enter valid email"}}';
+		} else if($password_check<=0){
+			echo '{"error":{"text":"Enter valid password"}}';
+		}
     }
     catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
