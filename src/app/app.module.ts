@@ -10,7 +10,6 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { TutorialPage } from '../pages/tutorial/tutorial';
 import { TabsPage } from '../pages/tabs/tabs';
 import { BookingPage } from '../pages/booking/booking';
 import { HistoryPage } from '../pages/history/history';
@@ -24,6 +23,7 @@ import { StaffHistoryPage } from '../pages/staff-history/staff-history';
 import { StaffRuanganPage } from '../pages/staff-ruangan/staff-ruangan';
 import { StaffSettingPage } from '../pages/staff-setting/staff-setting';
 import { StaffChatPage } from '../pages/staff-chat/staff-chat';
+import { InfoRuanganPage } from '../pages/info-ruangan/info-ruangan';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,6 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     BookingPage,
     HistoryPage,
     HomePage,
-	TutorialPage,
     ChatPage,
     StudentRegisterPage,
     StaffTabsPage,
@@ -42,7 +41,8 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     StaffRuanganPage,
     StaffChatPage,
     StaffSettingPage,
-    SettingsPage
+    SettingsPage,
+    InfoRuanganPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -55,7 +55,6 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     BookingPage,
     HistoryPage,
     HomePage,
-	TutorialPage,
     StudentLoginPage,
     StudentRegisterPage,
     StaffTabsPage,
@@ -65,7 +64,8 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     StaffChatPage,
     StaffSettingPage,
     ChatPage,
-    SettingsPage
+    SettingsPage,
+    InfoRuanganPage
   ],
   providers: [
     StatusBar,
