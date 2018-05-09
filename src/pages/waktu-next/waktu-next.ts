@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RuanganNextPage } from '../ruangan-next/ruangan-next';
+import { DetailPinjamPage } from '../detail-pinjam/detail-pinjam';
 
 /**
- * Generated class for the WaktuPage page.
+ * Generated class for the WaktuNextPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,18 +11,18 @@ import { RuanganNextPage } from '../ruangan-next/ruangan-next';
 
 @IonicPage()
 @Component({
-  selector: 'page-waktu',
-  templateUrl: 'waktu.html',
+  selector: 'page-waktu-next',
+  templateUrl: 'waktu-next.html',
 })
-export class WaktuPage {
+export class WaktuNextPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WaktuPage');
+    console.log('ionViewDidLoad WaktuNextPage');
   }
-  nextpage(){
-    this.navCtrl.push(RuanganNextPage);
+  nextdetail(){
+    this.navCtrl.push(DetailPinjamPage);
   }
 }

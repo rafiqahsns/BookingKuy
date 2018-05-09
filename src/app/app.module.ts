@@ -23,18 +23,24 @@ import { StaffHistoryPage } from '../pages/staff-history/staff-history';
 import { StaffRuanganPage } from '../pages/staff-ruangan/staff-ruangan';
 import { StaffSettingPage } from '../pages/staff-setting/staff-setting';
 import { StaffChatPage } from '../pages/staff-chat/staff-chat';
+import { RuanganNextPage } from '../pages/ruangan-next/ruangan-next';
+import { WaktuNextPage } from '../pages/waktu-next/waktu-next';
+import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
 
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
     BookingPage,
+    RuanganNextPage,
     HistoryPage,
     HomePage,
     ChatPage,
     StudentRegisterPage,
+    WaktuNextPage,
     StaffTabsPage,
     StaffLoginPage,
+    DetailPinjamPage,
     StaffHistoryPage,
     StudentLoginPage,
     StaffRuanganPage,
@@ -54,8 +60,11 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
     HistoryPage,
     HomePage,
     StudentLoginPage,
+    DetailPinjamPage,
     StudentRegisterPage,
-    StaffTabsPage,
+    StaffTabsPage, 
+    WaktuNextPage,
+    RuanganNextPage,
     StaffLoginPage,
     StaffHistoryPage,
     StaffRuanganPage,

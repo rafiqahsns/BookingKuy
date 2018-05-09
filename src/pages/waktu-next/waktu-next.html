@@ -1,0 +1,42 @@
+<!--
+  Generated template for the WaktuNextPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Waktu yang Tersedia</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Tanggal Sewa</ion-label>
+        <ion-datetime displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMM-YYYY"></ion-datetime>
+      </ion-item>
+      <ion-item>
+          <ion-label>Waktu</ion-label>
+        </ion-item>
+      <ion-list>
+          <ion-item>
+            <ion-label>14.00-15.00</ion-label>
+            <ion-checkbox checked="false"></ion-checkbox>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>16.00-17.00</ion-label>
+            <ion-checkbox checked="false"></ion-checkbox>
+          </ion-item>
+  
+          <ion-item>
+              <ion-label>21.00-22.00</ion-label>
+              <ion-checkbox checked="false"></ion-checkbox>
+            </ion-item>
+
+        </ion-list>
+        <button ion-button float-right (click)="nextdetail()">Pinjam</button>
+</ion-content>

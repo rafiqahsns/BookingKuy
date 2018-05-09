@@ -1,0 +1,23 @@
+<!--
+  Generated template for the RuanganNextPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ruangan yang Tersedia</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <ion-item-divider color="light">FMIPA</ion-item-divider>
+        <button ion-item *ngFor="let item of items" (click)="nextdetail()">
+            {{ item }}
+          </button> 
+      </ion-list>
+</ion-content>

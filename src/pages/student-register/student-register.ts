@@ -12,7 +12,9 @@ import { AlertController } from 'ionic-angular';
 export class StudentRegisterPage {
   responseData : any;
   userData = {"username": "","password": "", "name": "","email": ""};
-
+  public type = 'password';
+  public showPass = false;
+  
   constructor(public navCtrl: NavController, public authService:AuthService, private alertCtrl: AlertController ) {
   }
 
@@ -41,6 +43,15 @@ export class StudentRegisterPage {
       // Error log
     });
 
+  }
+
+  showPassword() {
+    this.showPass = !this.showPass;
+    if(this.showPass){
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
   }
 
   login(){

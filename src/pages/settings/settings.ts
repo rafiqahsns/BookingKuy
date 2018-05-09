@@ -19,7 +19,7 @@ export class SettingsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
     private alertCtrl:AlertController, public authService : AuthService) {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.userData;
+   this.userDetails = data.userData;
   }
 
   ionViewDidLoad() {

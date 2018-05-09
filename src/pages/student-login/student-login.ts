@@ -20,7 +20,9 @@ import { AlertController } from 'ionic-angular';
 export class StudentLoginPage {
   responseData : any;
   userData = {"username": "","password": ""};
-
+  public type = 'password';
+  public showPass = false;
+ 
   constructor(public navCtrl: NavController, public authService : AuthService, private alertCtrl: AlertController, public navParams: NavParams) {
   }
 
@@ -55,8 +57,13 @@ export class StudentLoginPage {
     this.navCtrl.push(TabsPage);
   }
 
-  showHide() {
-    console.log('hi');
+  showPassword() {
+    this.showPass = !this.showPass;
+    if(this.showPass){
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
   }
 
 

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { WaktuNextPage } from '../waktu-next/waktu-next';
+import { DetailPinjamPage } from '../detail-pinjam/detail-pinjam';
 
 /**
- * Generated class for the RuanganPage page.
+ * Generated class for the RuanganNextPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,33 +11,25 @@ import { WaktuNextPage } from '../waktu-next/waktu-next';
 
 @IonicPage()
 @Component({
-  selector: 'page-ruangan',
-  templateUrl: 'ruangan.html',
+  selector: 'page-ruangan-next',
+  templateUrl: 'ruangan-next.html',
 })
-export class RuanganPage {
+export class RuanganNextPage {
   items = [
     'RK U 2.01',
     'RK U 2.02',
-    'RK U 3.01'
+    'RK U 3.03'
   ];
-
-  faperta = [
-    'RK PINUS 1',
-    'RK PINUS 2',
-    'RK 16 FAC 401 D'
-  ];
-  public viewDetail=false;
-  nextpage(){
-    this.navCtrl.push(WaktuNextPage);
+  itemSelected(item: string) {
+    console.log("Selected Item", item);
   }
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RuanganPage');
+    console.log('ionViewDidLoad RuanganNextPage');
   }
-
-  
-
- 
+  nextdetail(){
+    this.navCtrl.push(DetailPinjamPage);
+  }
 }
