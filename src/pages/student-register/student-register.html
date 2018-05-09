@@ -1,7 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Registrasi Mahasiswa</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
 <ion-content padding class="appBackground">
   <ion-card>
     <ion-card-header>
+<<<<<<< HEAD
       Registrasi
+=======
+      Data Mahasiswa
+>>>>>>> 18045441134495611237b10e11b7bf79dc3a0827
     </ion-card-header>
     <ion-card-content>
       <ion-list>
@@ -23,6 +35,7 @@
         <ion-item>
           <ion-label stacked>Password</ion-label>
           <ion-input type="{{type}}" [(ngModel)]="userData.password"></ion-input>
+<<<<<<< HEAD
           <button *ngIf="!showPass" ion-button clear color="primary-dark" type="button" item-end (click)="showPassword()"  style="height:32px;"> 
             <ion-icon name="md-eye-off" style="font-size:32px;"></ion-icon></button>
           <button *ngIf="showPass" ion-button clear color="primary-dark" type="button" item-end (click)="showPassword()"  style="height:32px;"> 
@@ -31,6 +44,16 @@
 
         <button ion-button full color="success" (click)="signup()">Sign up</button><br>
         <a href="#" (click)="login()" float-right>Halaman Login</a><br>
+=======
+          <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-end (click)="showPassword()"  style="height:32px;">
+            <ion-icon name="ios-eye-off-outline" style="font-size:32px;"></ion-icon></button>
+          <button *ngIf="showPass" ion-button clear color="dark" type="button" item-end (click)="showPassword()"  style="height:32px;">
+            <ion-icon name="ios-eye-outline" style="font-size:32px;"></ion-icon></button>
+        </ion-item>
+
+        <button ion-button full color="success" (click)="signup()">Sign up</button><br>
+
+>>>>>>> 18045441134495611237b10e11b7bf79dc3a0827
       </ion-list>
     </ion-card-content>
   </ion-card>
