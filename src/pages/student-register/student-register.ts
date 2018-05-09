@@ -14,7 +14,7 @@ export class StudentRegisterPage {
   userData = {"username": "","password": "", "name": "","email": ""};
   public type = 'password';
   public showPass = false;
-  
+
   constructor(public navCtrl: NavController, public authService:AuthService, private alertCtrl: AlertController ) {
   }
 
@@ -54,8 +54,4 @@ export class StudentRegisterPage {
     }
   }
 
-  login(){
-    //Login page link
-    this.navCtrl.push(StudentLoginPage);
-  }
 }

@@ -21,6 +21,7 @@ export class InfoRuanganPage {
     const view = JSON.parse(localStorage.getItem('userView'));
     console.log(view);
     this.userDetails = view.userData;
+    
   }
 
   ionViewDidLoad() {

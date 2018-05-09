@@ -14,7 +14,7 @@ import { StaffTabsPage } from '../staff-tabs/staff-tabs'
   templateUrl: 'staff-login.html',
 })
 export class StaffLoginPage {
-  public type = 'password';
+  public type = "password";
   public showPass = false;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

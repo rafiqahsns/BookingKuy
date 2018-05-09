@@ -20,9 +20,9 @@ import { AlertController } from 'ionic-angular';
 export class StudentLoginPage {
   responseData : any;
   userData = {"username": "","password": ""};
-  public type = 'password';
+  public type = "password";
   public showPass = false;
- 
+
   constructor(public navCtrl: NavController, public authService : AuthService, private alertCtrl: AlertController, public navParams: NavParams) {
   }
 

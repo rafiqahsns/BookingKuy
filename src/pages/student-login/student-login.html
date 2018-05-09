@@ -23,11 +23,11 @@
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="{{type}}" [(ngModel)]="userData.password"></ion-input>
-     
- <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-end (click)="showPassword()"  style="height:32px;"> 
+      <ion-input type={{type}} [(ngModel)]="userData.password"></ion-input>
+
+ <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-end (click)="showPassword()"  style="height:32px;">
    <ion-icon name="ios-eye-off-outline" style="font-size:32px;"></ion-icon></button>
- <button *ngIf="showPass" ion-button clear color="dark" type="button" item-end (click)="showPassword()"  style="height:32px;"> 
+ <button *ngIf="showPass" ion-button clear color="dark" type="button" item-end (click)="showPassword()"  style="height:32px;">
    <ion-icon name="ios-eye-outline" style="font-size:32px;"></ion-icon></button>
     </ion-item>
   <br><br>
