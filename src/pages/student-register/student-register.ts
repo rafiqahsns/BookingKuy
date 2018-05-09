@@ -25,7 +25,7 @@ export class StudentRegisterPage {
       console.log(this.responseData);
       localStorage.setItem('userData', JSON.stringify(this.responseData));
       let alert = this.alertCtrl.create({
-        title: 'Register Successful',
+        title: 'Registrasi Berhasil',
         buttons: ['Ok']
       });
       alert.present();
@@ -33,8 +33,8 @@ export class StudentRegisterPage {
       }
       else{
         let alert = this.alertCtrl.create({
-          title: 'Register Failed',
-          subTitle: 'Username already exist!',
+          title: 'Registrasi Gagal',
+          subTitle: 'Username sudah ada!',
           buttons: ['Ok']
         });
         alert.present();

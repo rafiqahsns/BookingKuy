@@ -7,7 +7,41 @@
 <ion-content padding>
   <img class="circle-pic" src="../assets/imgs/no_pp.jpg"/><br>
   <ion-title align="center">{{userDetails.name}}</ion-title><br><br>
-  <button (click)="akun()" color="secondary" ion-button block>Profil</button><br>
-  <button (click)="notif()" color="secondary" ion-button block>Notifikasi</button><br>
-  <button color="secondary" ion-button block (click) = "logout()">Log Out</button>
-</ion-content>
+      <ion-item-group>
+        <ion-item-divider color="light">AKUN</ion-item-divider>
+        <ion-item (click)="akun()">Edit Akun</ion-item>
+        <ion-item (click)="logout()">Log Out</ion-item>
+      </ion-item-group>
+      <ion-item-group>
+          <ion-item-divider color="light">PENGATURAN NOTIFIKASI</ion-item-divider>
+          <ion-item>
+              <ion-toggle checked="false"></ion-toggle>
+              <ion-label>
+                Notifikasi
+              </ion-label>
+            </ion-item>
+          <ion-item>
+              <ion-toggle checked="false"></ion-toggle>
+              <ion-label>
+                Suara
+              </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-toggle checked="false"></ion-toggle>
+                <ion-label>
+                  Getar
+                </ion-label>
+              </ion-item>
+            <ion-item>
+                  <ion-toggle checked="false"></ion-toggle>
+                  <ion-label>
+                    LED
+                  </ion-label>
+                </ion-item>
+        </ion-item-group>
+        <ion-item-group>
+            <ion-item-divider color="light">TENTANG</ion-item-divider>
+            <ion-item>Bantuan</ion-item>
+            <ion-item>Tentang Aplikasi</ion-item>
+          </ion-item-group>
+  </ion-content>

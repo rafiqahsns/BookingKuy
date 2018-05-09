@@ -40,8 +40,8 @@ export class StudentLoginPage {
       }
       else{
         let alert = this.alertCtrl.create({
-          title: 'Login Failed',
-          subTitle: 'Wrong username or password.',
+          title: 'LoginGagal',
+          subTitle: 'Username atau password salah.',
           buttons: ['Ok']
         });
       alert.present();

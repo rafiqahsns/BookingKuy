@@ -15,7 +15,7 @@ import { AuthService } from '../../providers/auth-service/auth-service';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-
+  public userDetails;
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
     private alertCtrl:AlertController, public authService : AuthService) {
     const data = JSON.parse(localStorage.getItem('userData'));
