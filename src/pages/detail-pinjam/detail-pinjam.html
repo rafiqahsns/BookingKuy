@@ -18,21 +18,21 @@
         <img src="assets/imgs/ccr.jpg" width="50%"/>
         <ion-card-content>
           <ion-card-title>
-            RK U 2.01
+            {{ruanganDetails.nama}}
             </ion-card-title>
           <p>
             Kapasitas: 100 Orang<br>
-            Detail: Mic 2, Papan tulis 2<br><br>
+            Detail: {{ruanganDetails.deskripsi}}<br><br>
             Tanggal Pinjam: 2 Juni 2018<br>
             Waktu Pinjam: 12.00-19.00<br>
-            Harga Sewa: 200.000<br>
+            Harga Sewa: {{ruanganDetails.harga}}<br>
             Penanggung Jawab:<br>
           </p>
           <ion-item>
               <ion-thumbnail item-start>
                 <img src="assets/imgs/no_pp.jpg" class="circle-pic">
               </ion-thumbnail>
-              <h2>Totoro</h2>
+              <h2>{{ruanganDetails.penjaga}}</h2>
               <p>NIP: 9283749287394</p>
               <p>0818022233343</p>
             </ion-item><br>
@@ -40,5 +40,5 @@
             <br><br><br>
         </ion-card-content>
       </ion-card>
-    
+
 </ion-content>

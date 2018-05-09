@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, AlertController} from 'ionic-angular';
-import { AuthService } from '../../providers/auth-service/auth-service';
 import { TabsPage } from '../tabs/tabs';
 
 /**
@@ -16,9 +15,13 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'detail-pinjam.html',
 })
 export class DetailPinjamPage {
+  ruanganDetails: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
-    private alertCtrl:AlertController, public authService : AuthService) {
+    private alertCtrl:AlertController) {
+      const view = JSON.parse(localStorage.getItem('ruanganDetails'));
+      console.log(view);
+      this.ruanganDetails = view.userData; 
   }
 
   ionViewDidLoad() {

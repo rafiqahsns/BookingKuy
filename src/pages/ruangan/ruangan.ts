@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { WaktuNextPage } from '../waktu-next/waktu-next';
+import { AuthService } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the RuanganPage page.
@@ -27,17 +28,39 @@ export class RuanganPage {
     'RK 16 FAC 401 D'
   ];
   public viewDetail=false;
-  nextpage(){
-    this.navCtrl.push(WaktuNextPage);
+  ruanganData: any;
+  responseData: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthService,
+  private alertCtrl: AlertController) {
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  nextpage(item: string){
+      this.ruanganData = {"nama": item};
+      console.log("Selected Item", item);
+      this.authService.postData(this.ruanganData,'item').then((result) => {
+        this.responseData = result;
+
+        console.log(this.responseData);
+        if(this.responseData.userData){
+          localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData));
+          this.navCtrl.push(WaktuNextPage);
+        }
+        else{
+          let alert = this.alertCtrl.create({
+            title: 'Unknown Ruangan',
+            buttons: ['Ok']
+          });
+        alert.present();
+        }
+      }, (err) => {
+        // Error log
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RuanganPage');
   }
 
-  
 
- 
+
+
 }
