@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-title>Ruangan Sewa</ion-title>
-   
+
   </ion-navbar>
   <ion-searchbar
     [(ngModel)]="myInput"
@@ -22,14 +22,14 @@
 <ion-content>
     <ion-list>
         <ion-item-divider color="light">FMIPA</ion-item-divider>
-        <button ion-item *ngFor="let item of items" (click)="nextpage()">
+        <button ion-item *ngFor="let item of items" (click)="nextpage(item)">
             {{ item }}
-          </button> 
+          </button>
       </ion-list>
     <ion-list>
           <ion-item-divider color="light">FAPERTA</ion-item-divider>
-          <button ion-item *ngFor="let rfaperta of faperta" (click)="nextpage()">
-              {{ rfaperta }}
-            </button> 
+          <button ion-item *ngFor="let item of faperta" (click)="nextpage(item)">
+              {{ item }}
+            </button>
       </ion-list>
 </ion-content>

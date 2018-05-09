@@ -16,12 +16,13 @@ import { RuanganPage } from '../ruangan/ruangan';
   templateUrl: 'info-ruangan.html',
 })
 export class InfoRuanganPage {
-
+  userDetails: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     const view = JSON.parse(localStorage.getItem('userView'));
     console.log(view);
     this.userDetails = view.userData;
-    
+
+
   }
 
   ionViewDidLoad() {
