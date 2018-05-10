@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {  NavController} from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 import { StudentLoginPage } from '../student-login/student-login';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { AlertController } from 'ionic-angular';

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PhotoPage } from '../photo/photo';
 
 /**
  * Generated class for the AkunPage page.
@@ -16,6 +17,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class AkunPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  photo(){
+    this.navCtrl.push(PhotoPage);
   }
 
   ionViewDidLoad() {

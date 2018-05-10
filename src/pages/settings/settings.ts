@@ -32,6 +32,8 @@ export class SettingsPage {
     this.navCtrl.push('AkunPage');
   }
   logout(){
+    localStorage.clear();
+    console.log(localStorage); //checking if the data is gone after logout
     let alert = this.alertCtrl.create({
       title: 'Logout Successful',
       buttons: ['Ok']
