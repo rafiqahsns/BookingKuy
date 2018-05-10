@@ -5,14 +5,50 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>akun</ion-title>
+    <ion-title>Edit Akun</ion-title>
+    <ion-buttons end  (click)="saved()">
+        <button ion-button icon-only>
+          <ion-icon name="md-checkmark"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+  <br>
+  <img class="circle-pic" src="../assets/imgs/no_pp.jpg"/>
+  <ion-item text-center>
+      <button ion-button icon-left clear small>
+        <ion-icon name="ios-create"></ion-icon>
+        <div>Edit foto</div>
+      </button>
+    </ion-item><br>
 
-</ion-content>
+    <ion-list>
+        <ion-item>
+          <ion-label stacked>Nama</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Email</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Username</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input type="{{type}}"></ion-input>
+          <button *ngIf="!showPass" ion-button clear color="primary-dark" type="button" item-end (click)="showPassword()"  style="height:32px;"> 
+            <ion-icon name="md-eye-off" style="font-size:32px;"></ion-icon></button>
+          <button *ngIf="showPass" ion-button clear color="primary-dark" type="button" item-end (click)="showPassword()"  style="height:32px;"> 
+            <ion-icon name="md-eye" style="font-size:32px;"></ion-icon></button>
+        </ion-item>
+      </ion-list>
+  
+  </ion-content>
