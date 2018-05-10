@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, AlertController } from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
 import { TabsPage } from '../tabs/tabs';
+import { PhotoPage } from '../photo/photo';
 
 /**
  * Generated class for the AkunPage page.
@@ -22,6 +23,11 @@ export class AkunPage {
   }
   public showPass = false;
   public type = 'password';
+
+  photo(){
+    this.navCtrl.push(PhotoPage);
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AkunPage');
   }

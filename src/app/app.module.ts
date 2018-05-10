@@ -26,6 +26,8 @@ import { StaffChatPage } from '../pages/staff-chat/staff-chat';
 import { RuanganNextPage } from '../pages/ruangan-next/ruangan-next';
 import { WaktuNextPage } from '../pages/waktu-next/waktu-next';
 import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
+import { PhotoPage } from '../pages/photo/photo';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
     StaffRuanganPage,
     StaffChatPage,
     StaffSettingPage,
-    SettingsPage
+    SettingsPage,
+    PhotoPage,
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -62,7 +65,7 @@ import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
     StudentLoginPage,
     DetailPinjamPage,
     StudentRegisterPage,
-    StaffTabsPage, 
+    StaffTabsPage,
     WaktuNextPage,
     RuanganNextPage,
     StaffLoginPage,
@@ -71,12 +74,13 @@ import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
     StaffChatPage,
     StaffSettingPage,
     ChatPage,
-    SettingsPage
+    SettingsPage,
+    PhotoPage,
   ],
   providers: [
     StatusBar,
     Calendar,
-    SplashScreen,AuthService,
+    SplashScreen,AuthService, Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

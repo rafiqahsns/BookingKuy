@@ -13,6 +13,8 @@ $app->post('/feed','feed'); /* User Feeds  */
 $app->post('/feedUpdate','feedUpdate'); /* User Feeds  */
 $app->post('/feedDelete','feedDelete'); /* User Feeds  */
 $app->post('/getImages', 'getImages');
+$app->post('/userImage','userImage'); /* User Images */
+$app->post('/getImages', 'getImages');
 
 
 $app->run();
@@ -55,7 +57,7 @@ function login() {
 
         $db = getDB();
         $userData ='';
-        $sql = "SELECT user_id, name, email, username FROM users WHERE (username=:username or email=:username) and password=:password ";
+        $sql = "SELECT user_id, name, email, username, profilpic FROM users WHERE (username=:username or email=:username) and password=:password ";
         $stmt = $db->prepare($sql);
         $stmt->bindParam("username", $data->username, PDO::PARAM_STR);
         $password=hash('sha256',$data->password);
@@ -383,7 +385,7 @@ function feedDelete(){
     }
 
 }
-$app->post('/userImage','userImage'); /* User Details */
+
 function userImage(){
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());
@@ -392,9 +394,9 @@ function userImage(){
     $imageB64=$data->imageB64;
     $systemToken=apiToken($user_id);
     try {
-        if(1){
+        if($systemToken == $token){
             $db = getDB();
-            $sql = "INSERT INTO imagesData(b64,user_id_fk) VALUES(:b64,:user_id)";
+            $sql = "UPDATE users SET profilpic = :b64 WHERE user_id = :user_id";
             $stmt = $db->prepare($sql);
             $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
             $stmt->bindParam("b64", $imageB64, PDO::PARAM_STR);
@@ -409,7 +411,6 @@ function userImage(){
     }
 }
 
-$app->post('/getImages', 'getImages');
 function getImages(){
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());

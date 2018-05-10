@@ -16,7 +16,7 @@
 <ion-content padding>
     <ion-item>
         <ion-label>Tanggal Sewa</ion-label>
-        <ion-datetime displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMM-YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="date" (ionChange)="updatedate()" displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMM-YYYY" id="sewaDate"></ion-datetime>
       </ion-item>
       <ion-item>
           <ion-label>Waktu</ion-label>
@@ -24,17 +24,17 @@
       <ion-list>
           <ion-item>
             <ion-label>14.00-15.00</ion-label>
-            <ion-checkbox checked="false"></ion-checkbox>
+            <ion-checkbox [(ngModel)]="time[0]" (ionChange)="updatetime()" disabled="false"></ion-checkbox>
           </ion-item>
-      
+
           <ion-item>
             <ion-label>16.00-17.00</ion-label>
-            <ion-checkbox checked="false"></ion-checkbox>
+            <ion-checkbox [(ngModel)]="time[1]" (ionChange)="updatetime()" disabled='false'></ion-checkbox>
           </ion-item>
-  
+
           <ion-item>
               <ion-label>21.00-22.00</ion-label>
-              <ion-checkbox checked="false"></ion-checkbox>
+              <ion-checkbox [(ngModel)]="time[2]" (ionChange)="updatetime()" disabled='false'></ion-checkbox>
             </ion-item>
 
         </ion-list>

@@ -16,12 +16,18 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class DetailPinjamPage {
   ruanganDetails: any;
+  pinjamDate: any;
+  pinjamTime: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
     private alertCtrl:AlertController) {
-      const view = JSON.parse(localStorage.getItem('ruanganDetails'));
-      console.log(view);
-      this.ruanganDetails = view.userData; 
+      const ruangan = JSON.parse(localStorage.getItem('ruanganDetails'));
+      const pinjam = JSON.parse(localStorage.getItem('pinjamDetails'));
+      console.log(ruangan);
+      console.log(pinjam);
+      this.ruanganDetails = ruangan.userData;
+      this.pinjamDate = pinjam.date;
+      this.pinjamTime = pinjam.time;
   }
 
   ionViewDidLoad() {
