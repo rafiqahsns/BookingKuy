@@ -17,9 +17,9 @@ import { DetailPinjamPage } from '../detail-pinjam/detail-pinjam';
 export class WaktuNextPage {
   time = [false, false, false];
   timeDetails = ['14.00-15.00', '16.00-17.00', '21.00-22.00'];
-  timeFix = ['','',''];
+  timeFix = [null,null,null];
   date: any;
-  detailPinjam = {"date": '', "time": ''};
+  detailPinjam = {"date": '', "time": null};
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
