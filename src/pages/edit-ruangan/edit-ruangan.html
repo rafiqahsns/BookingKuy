@@ -7,12 +7,36 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edit-ruangan</ion-title>
+    <ion-title>Edit Ruangan</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <b>Nama Ruangan:</b> RK U 2.03
+    </ion-item>
 
+    <ion-item>
+      <b>Lokasi:</b> FMIPA
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Kapasitas (Orang):</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Deskripsi</ion-label>
+      <ion-textarea type="text"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <b>Harga:</b> Rp. 100.000,-
+    </ion-item>
+    <br>
+    <button ion-button float-right (click)="save()">Simpan</button>
+    <br><br>
 </ion-content>
