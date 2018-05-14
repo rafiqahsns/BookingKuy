@@ -16,6 +16,7 @@ $app->post('/getImages', 'getImages');
 $app->post('/userImage','userImage'); /* User Images */
 $app->post('/getImages', 'getImages');
 $app->post('/pinjam', 'pinjam');
+$app->post('/history', 'history');
 
 
 $app->run();
@@ -58,7 +59,7 @@ function login() {
 
         $db = getDB();
         $userData ='';
-        $sql = "SELECT user_id, name, email, username, profilpic FROM users WHERE (username=:username or email=:username) and password=:password ";
+        $sql = "SELECT user_id, tipe, name, email, username, profilpic FROM users WHERE (username=:username or email=:username) and password=:password ";
         $stmt = $db->prepare($sql);
         $stmt->bindParam("username", $data->username, PDO::PARAM_STR);
         $password=hash('sha256',$data->password);
@@ -479,6 +480,22 @@ function pinjam(){
       $db = null;
       echo '{"error":{"text":"Ruangan Tidak Tersedia"}}';
     }
+}
+
+function history(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+  $penjaga = $data->penjaga;
+  $db = getDB();
+  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
+  $stmt->execute();
+  $hasil = $stmt->fetchAll(PDO::FETCH_OBJ);
+  $hasil = json_encode($hasil);
+  echo '{"hasil": ' . $hasil . '}';
+  $db = null;
+
 }
 
 
