@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { StaffTabsPage } from '../staff-tabs/staff-tabs'
+import { StaffTabsPage } from '../staff-tabs/staff-tabs';
+import { AuthService } from '../../providers/auth-service/auth-service';
+import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the StaffLoginPage page.
  *
@@ -14,9 +16,13 @@ import { StaffTabsPage } from '../staff-tabs/staff-tabs'
   templateUrl: 'staff-login.html',
 })
 export class StaffLoginPage {
+  responseData : any;
+  userData = {"username": "","password": ""};
   public type = "password";
   public showPass = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService : AuthService,
+  private alertCtrl: AlertController) {
+
   }
 
   ionViewDidLoad() {
@@ -24,7 +30,23 @@ export class StaffLoginPage {
   }
 
   StaffTabsPush(){
-    this.navCtrl.push(StaffTabsPage);
+    this.authService.postData(this.userData,'login').then((result) => {
+    this.responseData = result;
+    if(this.responseData.userData){
+      localStorage.setItem('userData', JSON.stringify(this.responseData));
+      this.navCtrl.push(StaffTabsPage);
+    }
+      else{
+        let alert = this.alertCtrl.create({
+          title: 'LoginGagal',
+          subTitle: 'Username atau password salah.',
+          buttons: ['Ok']
+        });
+      alert.present();
+      }
+    }, (err) => {
+      // Error log
+    });
   }
   showPassword() {
     this.showPass = !this.showPass;

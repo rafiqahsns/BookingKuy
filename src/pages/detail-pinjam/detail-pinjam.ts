@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, AlertController} from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { AuthService } from "../../providers/auth-service/auth-service";
 
 /**
  * Generated class for the DetailPinjamPage page.
@@ -18,28 +19,73 @@ export class DetailPinjamPage {
   ruanganDetails: any;
   pinjamDate: any;
   pinjamTime: any;
+  harga: number = 0;
+  responseData : any;
+  userDetails: any;
+  pinjamData = {"ruangan": "","date": "","time": "","penyewa": "", "penjaga":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
-    private alertCtrl:AlertController) {
+    private alertCtrl:AlertController, public authService: AuthService) {
+      const data = JSON.parse(localStorage.getItem('userData'));
+      this.userDetails = data.userData;
       const ruangan = JSON.parse(localStorage.getItem('ruanganDetails'));
       const pinjam = JSON.parse(localStorage.getItem('pinjamDetails'));
-      console.log(ruangan);
-      console.log(pinjam);
+      //console.log(ruangan);
+      //console.log(pinjam);
       this.ruanganDetails = ruangan.userData;
       this.pinjamDate = pinjam.date;
       this.pinjamTime = pinjam.time;
+      var i;
+      for(i=0; i<this.pinjamTime.length; i++ ){
+        if(this.pinjamTime[i]!=null){
+          this.harga += Number(this.ruanganDetails.harga);
+        }
+      }
+      //console.log(this.pinjamTime.length);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailPinjamPage');
   }
   done(){
-      let alert = this.alertCtrl.create({
-        title: 'Peminjaman berhasil.',
-        subTitle: 'Tunggu konfirmasi dari penanggung jawab ruangan.',
-        buttons: ['Ok']
-      });
-      alert.present();
-      this.navCtrl.push(TabsPage);
+    this.pinjamData.ruangan = this.ruanganDetails.nama;
+    this.pinjamData.date = this.pinjamDate;
+    this.pinjamData.penyewa = this.userDetails.name;
+    this.pinjamData.penjaga = this.ruanganDetails.penjaga;
+    var i;
+    var check=0;
+    for(i=0; i< this.pinjamTime.length;i++){
+        if(this.pinjamTime[i]!=null){
+            this.pinjamData.time = this.pinjamTime[i];
+            this.authService.postData(this.pinjamData, "pinjam").then(
+              (result) => {
+                this.responseData = result;
+                console.log(this.responseData);
+                if(!this.responseData.hasil){
+                    let alert = this.alertCtrl.create({
+                      title: 'Peminjaman gagal.',
+                      subTitle: 'Ada ruangan yang tidak tersedia.',
+                      buttons: ['Ok']
+                    });
+                    alert.present();
+                    check = 1;
+                    this.navCtrl.push(TabsPage);
+                }
+              },
+              (err) => {
+                // Error log
+              }
+            );
+          }
+      }
+      if(check==0){
+          let alert = this.alertCtrl.create({
+            title: 'Peminjaman berhasil.',
+            subTitle: 'Tunggu konfirmasi dari penanggung jawab ruangan.',
+            buttons: ['Ok']
+          });
+          alert.present();
+          this.navCtrl.push(TabsPage);
+      }
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, App } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the StaffSettingPage page.
@@ -15,11 +16,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class StaffSettingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
+    private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffSettingPage');
+  }
+
+  logout(){
+    localStorage.clear();
+    console.log(localStorage); //checking if the data is gone after logout
+    let alert = this.alertCtrl.create({
+      title: 'Logout Successful',
+      buttons: ['Ok']
+    });
+    alert.present();
+    this.appCtrl.getRootNav().setRoot(HomePage);
   }
 
 }

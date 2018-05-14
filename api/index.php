@@ -15,6 +15,8 @@ $app->post('/feedDelete','feedDelete'); /* User Feeds  */
 $app->post('/getImages', 'getImages');
 $app->post('/userImage','userImage'); /* User Images */
 $app->post('/getImages', 'getImages');
+$app->post('/pinjam', 'pinjam');
+$app->post('/history', 'history');
 
 
 $app->run();
@@ -57,7 +59,7 @@ function login() {
 
         $db = getDB();
         $userData ='';
-        $sql = "SELECT user_id, name, email, username, profilpic FROM users WHERE (username=:username or email=:username) and password=:password ";
+        $sql = "SELECT user_id, tipe, name, email, username, profilpic FROM users WHERE (username=:username or email=:username) and password=:password ";
         $stmt = $db->prepare($sql);
         $stmt->bindParam("username", $data->username, PDO::PARAM_STR);
         $password=hash('sha256',$data->password);
@@ -435,4 +437,66 @@ function getImages(){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 }
+
+function pinjam(){
+    $request = \Slim\Slim::getInstance()->request();
+    $data = json_decode($request->getBody());
+    $ruangan = $data->ruangan;
+    $tanggal = $data->date;
+    $waktu = $data->time;
+    $penyewa = $data->penyewa;
+    $penjaga = $data->penjaga;
+    $db = getDB();
+    $sql = "SELECT ruangan, tanggal, waktu FROM history WHERE ruangan= :ruangan AND tanggal= :tanggal AND waktu = :waktu";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("ruangan", $ruangan, PDO::PARAM_STR);
+    $stmt->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
+    $stmt->bindParam("waktu", $waktu, PDO::PARAM_STR);
+    $stmt->execute();
+    $hasil = $stmt->fetch(PDO::FETCH_OBJ);
+
+    if(empty($hasil)){
+        $sql = "INSERT INTO history (ruangan, tanggal,waktu,penyewa,penjaga) VALUES (:ruangan,:tanggal,:waktu,:penyewa,:penjaga)";
+        $stmt1 = $db->prepare($sql);
+        $stmt1->bindParam("ruangan", $ruangan, PDO::PARAM_STR);
+        $stmt1->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
+        $stmt1->bindParam("waktu", $waktu, PDO::PARAM_STR);
+        $stmt1->bindParam("penyewa", $penyewa, PDO::PARAM_STR);
+        $stmt1->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
+        $stmt1->execute();
+
+        $sql = "SELECT * FROM history WHERE ruangan = :ruangan AND tanggal= :tanggal AND waktu = :waktu";
+        $stmt2 = $db->prepare($sql);
+        $stmt2->bindParam("ruangan", $ruangan, PDO::PARAM_STR);
+        $stmt2->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
+        $stmt2->bindParam("waktu", $waktu, PDO::PARAM_STR);
+        $stmt2->execute();
+        $hasil2 = $stmt2->fetch(PDO::FETCH_OBJ);
+        $hasil2 = json_encode($hasil2);
+         echo '{"hasil": ' . $hasil2 . '}';
+        $db = null;
+
+    } else{
+      $db = null;
+      echo '{"error":{"text":"Ruangan Tidak Tersedia"}}';
+    }
+}
+
+function history(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+  $penjaga = $data->penjaga;
+  $db = getDB();
+  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
+  $stmt->execute();
+  $hasil = $stmt->fetchAll(PDO::FETCH_OBJ);
+  $hasil = json_encode($hasil);
+  echo '{"hasil": ' . $hasil . '}';
+  $db = null;
+
+}
+
+
 ?>
