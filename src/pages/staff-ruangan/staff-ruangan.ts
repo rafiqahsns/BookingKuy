@@ -42,7 +42,7 @@ export class StaffRuanganPage {
   }
   }, (err) => {
     // Error log
-  });
+  }); 
 }
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffRuanganPage');

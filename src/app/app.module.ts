@@ -28,6 +28,7 @@ import { WaktuNextPage } from '../pages/waktu-next/waktu-next';
 import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
 import { PhotoPage } from '../pages/photo/photo';
 import {Camera, CameraOptions} from '@ionic-native/camera';
+import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
     RuanganNextPage,
     HistoryPage,
     HomePage,
+    EditRuanganPage,
     ChatPage,
     StudentRegisterPage,
     WaktuNextPage,
@@ -61,6 +63,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
     TabsPage,
     BookingPage,
     HistoryPage,
+    EditRuanganPage,
     HomePage,
     StudentLoginPage,
     DetailPinjamPage,
