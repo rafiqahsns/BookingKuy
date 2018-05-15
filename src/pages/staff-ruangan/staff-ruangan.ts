@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-
+import { EditRuanganPage } from '../edit-ruangan/edit-ruangan'
 /**
  * Generated class for the StaffRuanganPage page.
  *
@@ -42,6 +42,9 @@ export class StaffRuanganPage {
     // Error log
   });
 }
+  editt(){
+    this.navCtrl.push(EditRuanganPage);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffRuanganPage');
   }
