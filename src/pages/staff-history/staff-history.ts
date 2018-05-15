@@ -34,6 +34,7 @@ export class StaffHistoryPage {
       for(i=0 ; i < this.responseData.hasil.length; i++){
         this.arr[i] = this.responseData.hasil[i];
         if(this.arr[i].status == "0"){
+          
           this.arr[i].status = "Menunggu konfirmasi.";
         }else{ this.arr[i].status = "Ruangan telah dikonfirmasi.";}
       }
