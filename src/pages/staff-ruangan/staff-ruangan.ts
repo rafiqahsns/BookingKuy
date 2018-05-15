@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EditRuanganPage } from '../edit-ruangan/edit-ruangan';
 
 /**
  * Generated class for the StaffRuanganPage page.
@@ -21,5 +22,7 @@ export class StaffRuanganPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffRuanganPage');
   }
-
+  editt(){
+    this.navCtrl.push(EditRuanganPage);
+  }
 }
