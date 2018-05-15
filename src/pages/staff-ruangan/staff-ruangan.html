@@ -14,16 +14,20 @@
 
 
 <ion-content padding>
-  <ion-card>
+  <ion-card *ngFor = "let list of ruangan">
 
     <ion-item>
-      <h1>RK X 3.03</h1>
+      <h1>{{list.nama}}</h1>
+      <h3>{{list.fakultas}}</h3>
+      <p>{{list.harga}}</p><br>
     </ion-item>
-  
-    <img src="assets/imgs/ccr.jpg" width="50%">
-  
+
+      <img [src]="list.picture">
+
     <ion-card-content>
       <p>Deskripsi Ruangan</p>
+      <p>{{list.deskripsi}}</p>
+
     </ion-card-content>
 
       <ion-item text-center>
@@ -31,6 +35,6 @@
           <ion-icon name="ios-create"></ion-icon>
           <div>Edit Ruangan</div>
         </button>
-      </ion-item>  
+      </ion-item>
   </ion-card>
 </ion-content>
