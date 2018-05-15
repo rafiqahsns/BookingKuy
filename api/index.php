@@ -17,7 +17,7 @@ $app->post('/userImage','userImage'); /* User Images */
 $app->post('/getImages', 'getImages');
 $app->post('/pinjam', 'pinjam');
 $app->post('/history', 'history');
-
+$app->post('/ruangan', 'ruangan');
 
 $app->run();
 
@@ -28,7 +28,7 @@ function item(){
   try {
     $db = getDB();
     $userView ='';
-    $sql = "SELECT id_ruangan, nama, deskripsi, fakultas, penjaga, harga FROM ruangan WHERE nama=:nama ";
+    $sql = "SELECT id_ruangan, nama, deskripsi, fakultas, penjaga, harga FROM ruangan WHERE nama=:nama";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->execute();
@@ -38,6 +38,32 @@ function item(){
     if($userView){
           $userView = json_encode($userView);
            echo '{"userData": ' .$userView . '}';
+       } else {
+          echo '{"error":{"text":"Unknown Ruangan"}}';
+       }
+  }
+  catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+  }
+
+}
+
+function ruangan(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+
+  try {
+    $db = getDB();
+    $userView ='';
+    $sql = "SELECT * FROM ruangan WHERE penjaga=:penjaga";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("penjaga", $data->penjaga, PDO::PARAM_STR);
+    $stmt->execute();
+    $userView = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $db = null;
+    if($userView){
+          $userView = json_encode($userView);
+           echo '{"hasil": ' .$userView . '}';
        } else {
           echo '{"error":{"text":"Unknown Ruangan"}}';
        }
@@ -497,6 +523,7 @@ function history(){
   $db = null;
 
 }
+
 
 
 ?>

@@ -30,6 +30,7 @@ import { PhotoPage } from '../pages/photo/photo';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -52,6 +53,7 @@ import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
     StaffSettingPage,
     SettingsPage,
     PhotoPage,
+    EditRuanganPage
   ],
   imports: [
     BrowserModule,HttpModule,

@@ -17,8 +17,7 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 export class StaffHistoryPage {
   userData = {"penjaga": ""};
   userDetails: any;
-  history = [''];
-  ruangan = [''];
+  arr = ['']
   responseData : any;
   result: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -33,17 +32,16 @@ export class StaffHistoryPage {
       console.log(this.responseData)
       var i;
       for(i=0 ; i < this.responseData.hasil.length; i++){
-        if(this.responseData.hasil[i].status == '0'){
-          this.history[i] = 'Menunggu konfirmasi';
-        } else{
-          this.history[i] = 'Ruangan telah dikonfirmasi';
-        }
-        this.ruangan[i] = this.responseData.hasil[i].ruangan;
+        this.arr[i] = this.responseData.hasil[i];
+        if(this.arr[i].status == "0"){
+          this.arr[i].status = "Menunggu konfirmasi.";
+        }else{ this.arr[i].status = "Ruangan telah dikonfirmasi.";}
       }
     }
     }, (err) => {
       // Error log
     });
+    console.log(this.history);
   }
 
   ionViewDidLoad() {
