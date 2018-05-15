@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EditRuanganPage } from '../edit-ruangan/edit-ruangan';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
@@ -36,8 +35,7 @@ export class StaffRuanganPage {
     var i;
     for(i=0 ; i < this.responseData.hasil.length; i++){
       this.ruangan[i] = this.responseData.hasil[i];
-      this.ruangan[i].picture =
-        this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,'+this.ruangan[i].picture);
+      this.ruangan[i].picture = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,'+this.ruangan[i].picture);
     }
   }
   }, (err) => {
@@ -47,7 +45,5 @@ export class StaffRuanganPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffRuanganPage');
   }
-  editt(){
-    this.navCtrl.push(EditRuanganPage);
-  }
+
 }
