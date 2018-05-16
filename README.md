@@ -6,7 +6,7 @@
 
 ~~2.Cari berdasarkan ruangan, list cuma yang udah ada di databasenya aja.~~
 
-3.Kelarin riwayat penyewa.
+~~3.Kelarin riwayat penyewa.~~
 
 4.Kelarin edit ruangan.
 
