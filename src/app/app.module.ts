@@ -78,6 +78,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     ChatPage,
     SettingsPage,
     PhotoPage,
+    EditRuanganPage
   ],
   providers: [
     StatusBar,
