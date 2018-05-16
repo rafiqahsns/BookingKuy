@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { EditRuanganPage } from '../edit-ruangan/edit-ruangan'
 /**
  * Generated class for the StaffRuanganPage page.
@@ -16,7 +16,7 @@ import { EditRuanganPage } from '../edit-ruangan/edit-ruangan'
   templateUrl: 'staff-ruangan.html',
 })
 export class StaffRuanganPage {
-  ruangan = [''];
+  ruangan : any =  [''];
   responseData : any;
   userData = {"penjaga": ""};
   userDetails: any;
