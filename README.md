@@ -3,7 +3,7 @@
 # To do:
 
 1. Kelarin cari berdasarkan tanggal
-2. Cari berdasarkan ruangan, list cuma yang udah ada di databasenya aja.
+~~2. Cari berdasarkan ruangan, list cuma yang udah ada di databasenya aja. ~~
 3. Kelarin riwayat penyewa.
 4. Kelarin edit ruangan.
 5. Kelarin tambah ruangan
