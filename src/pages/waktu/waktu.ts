@@ -15,8 +15,18 @@ import { RuanganNextPage } from '../ruangan-next/ruangan-next';
   templateUrl: 'waktu.html',
 })
 export class WaktuPage {
-
+  jam:any;
+  asal:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+   this.asal="false";
+   this.jam = [
+    '15.00-16.00',
+    '16.00-17.00',
+    '17.00-18.00',
+    '18.00-19.00',
+    '19.00-20.00',
+    '20.00-21.00'
+  ];
   }
 
   ionViewDidLoad() {

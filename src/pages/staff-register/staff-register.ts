@@ -1,20 +1,31 @@
 import { Component } from '@angular/core';
-import {  NavController} from 'ionic-angular';
-import { StudentLoginPage } from '../student-login/student-login';
-import { AuthService } from '../../providers/auth-service/auth-service';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { AuthService } from '../../providers/auth-service/auth-service';
+import { StaffLoginPage } from '../staff-login/staff-login';
+/**
+ * Generated class for the StaffRegisterPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
+@IonicPage()
 @Component({
-  selector: 'page-student-register',
-  templateUrl: 'student-register.html',
+  selector: 'page-staff-register',
+  templateUrl: 'staff-register.html',
 })
-export class StudentRegisterPage {
+export class StaffRegisterPage {
+
   responseData : any;
-  userData = {"username": "","password": "", "name": "","email": "", "tipe":0 };
+  userData = {"username": "","password": "", "name": "","email": "", "tipe":1 };
   public type = 'password';
   public showPass = false;
 
   constructor(public navCtrl: NavController, public authService:AuthService, private alertCtrl: AlertController ) {
+  }
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad StaffRegisterPage');
   }
 
   signup(){
@@ -28,7 +39,7 @@ export class StudentRegisterPage {
         buttons: ['Ok']
       });
       alert.present();
-      this.navCtrl.push(StudentLoginPage);
+      this.navCtrl.push(StaffLoginPage);
       }
       else{
         let alert = this.alertCtrl.create({

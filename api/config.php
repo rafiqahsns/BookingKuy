@@ -7,7 +7,7 @@ session_start();
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_DATABASE', 'Project');
+define('DB_DATABASE', 'bookingkuy');
 define("BASE_URL", "http://localhost/PHP-Slim-Restful/api/");
 define("SITE_KEY", 'yourSecretKey');
 

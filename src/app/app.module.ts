@@ -23,12 +23,14 @@ import { StaffHistoryPage } from '../pages/staff-history/staff-history';
 import { StaffRuanganPage } from '../pages/staff-ruangan/staff-ruangan';
 import { StaffSettingPage } from '../pages/staff-setting/staff-setting';
 import { StaffChatPage } from '../pages/staff-chat/staff-chat';
-import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
 import { RuanganNextPage } from '../pages/ruangan-next/ruangan-next';
 import { WaktuNextPage } from '../pages/waktu-next/waktu-next';
 import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
 import { PhotoPage } from '../pages/photo/photo';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
+import { StaffRegisterPage } from '../pages/staff-register/staff-register';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     RuanganNextPage,
     HistoryPage,
     HomePage,
+    EditRuanganPage,
     ChatPage,
     StudentRegisterPage,
     WaktuNextPage,
@@ -51,7 +54,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     StaffSettingPage,
     SettingsPage,
     PhotoPage,
-    EditRuanganPage
+    EditRuanganPage,
+    StaffRegisterPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -63,6 +67,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     TabsPage,
     BookingPage,
     HistoryPage,
+    EditRuanganPage,
     HomePage,
     StudentLoginPage,
     DetailPinjamPage,
@@ -78,7 +83,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     ChatPage,
     SettingsPage,
     PhotoPage,
-    EditRuanganPage
+    EditRuanganPage,
+    StaffRegisterPage
   ],
   providers: [
     StatusBar,

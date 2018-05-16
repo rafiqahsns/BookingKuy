@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EditRuanganPage } from '../edit-ruangan/edit-ruangan'
@@ -22,7 +22,7 @@ export class StaffRuanganPage {
   userDetails: any;
   result: any;
   constructor(public navCtrl: NavController, public navParams: NavParams
-  , private authService: AuthService, private sanitizer: DomSanitizer) {
+  , private authService: AuthService, private sanitizer: DomSanitizer, public alertCtrl: AlertController) {
   const data = JSON.parse(localStorage.getItem('userData'));
   this.userDetails = data.userData;
   this.userData.penjaga = this.userDetails.name;
@@ -40,7 +40,7 @@ export class StaffRuanganPage {
   }
   }, (err) => {
     // Error log
-  });
+  }); 
 }
   editt(){
     this.navCtrl.push(EditRuanganPage);
@@ -48,5 +48,33 @@ export class StaffRuanganPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffRuanganPage');
   }
+  tambah(){
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Ruangan yang tersedia');
 
-}
+    alert.addInput({
+      type: 'checkbox',
+      label: 'Audit Mandiri',
+      value: 'audit',
+    });
+
+    alert.addInput({
+      type: 'checkbox',
+      label: 'RK Fisika',
+      value: 'fisika'
+    });
+
+    alert.addButton('Batal');
+    alert.addButton({
+      text: 'Tambah',
+      handler: data => {
+        console.log('Checkbox data:', data);
+       // this.testCheckboxOpen = false;
+       // this.testCheckboxResult = data;
+      }
+    });
+    alert.present();
+  }
+  }
+
+
