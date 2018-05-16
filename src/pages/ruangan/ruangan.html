@@ -22,14 +22,14 @@
 <ion-content>
     <ion-list>
         <ion-item-divider color="light">FMIPA</ion-item-divider>
-        <button ion-item *ngFor="let item of items" (click)="nextpage(item)">
-            {{ item }}
+        <button ion-item *ngFor="let item of fmipa" (click)="nextpage(item)">
+            {{ item.nama }}
           </button>
       </ion-list>
     <ion-list>
           <ion-item-divider color="light">FAPERTA</ion-item-divider>
           <button ion-item *ngFor="let item of faperta" (click)="nextpage(item)">
-              {{ item }}
+              {{ item.nama }}
             </button>
       </ion-list>
 </ion-content>

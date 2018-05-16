@@ -16,17 +16,8 @@ import { AuthService } from '../../providers/auth-service/auth-service';
   templateUrl: 'ruangan.html',
 })
 export class RuanganPage {
-  items = [
-    'RK U 2.01',
-    'RK U 2.02',
-    'RK U 3.01'
-  ];
-
-  faperta = [
-    'RK PINUS 1',
-    'RK PINUS 2',
-    'RK 16 FAC 401 D'
-  ];
+  fmipa : any;
+  faperta : any;
   public viewDetail=false;
   ruanganData: any;
   responseData: any;
@@ -36,16 +27,30 @@ export class RuanganPage {
   }
 
   initializeItems(){
-    this.items = [
-      'RK U 2.01',
-      'RK U 2.02',
-      'RK U 3.01'
-    ];
-    this.faperta = [
-      'RK PINUS 1',
-      'RK PINUS 2',
-      'RK 16 FAC 401 D'
-    ];
+    this.authService.postData("FMIPA", "listRuangan").then(
+      result => {
+        this.responseData = result;
+        this.fmipa = this.responseData.hasil;
+        console.log('hasil :');
+        console.log(this.responseData);
+        console.log(this.fmipa);
+      },
+      err => {
+        console.log('error fetching FMIPA');
+      }
+    );
+    this.authService.postData("FAPERTA", "listRuangan").then(
+      result => {
+        this.responseData = result;
+        this.faperta = this.responseData.hasil;
+        console.log('hasil :');
+        console.log(this.responseData);
+        console.log(this.faperta);
+      },
+      err => {
+        console.log('error fetching FAPERTA');
+      }
+    );
   }
 
   onInput(ev) {
@@ -57,7 +62,7 @@ export class RuanganPage {
 
   // if the value is an empty string don't filter the items
   if (val && val.trim() != '') {
-    this.items = this.items.filter((item) => {
+    this.fmipa = this.fmipa.filter((item) => {
       return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
     })
   }
@@ -67,8 +72,9 @@ export class RuanganPage {
     })
   }
 }
+
   nextpage(item: string){
-      this.ruanganData = {"nama": item};
+      this.ruanganData = item;
       console.log("Selected Item", item);
       this.authService.postData(this.ruanganData,'item').then((result) => {
         this.responseData = result;
