@@ -17,7 +17,7 @@ $app->post('/userImage','userImage'); /* User Images */
 $app->post('/getImages', 'getImages');
 $app->post('/pinjam', 'pinjam');
 $app->post('/history', 'history');
-$app->post('/ruangan', 'ruangan');
+
 
 $app->run();
 
@@ -28,7 +28,7 @@ function item(){
   try {
     $db = getDB();
     $userView ='';
-    $sql = "SELECT id_ruangan, nama, deskripsi, fakultas, penjaga, harga FROM ruangan WHERE nama=:nama";
+    $sql = "SELECT id_ruangan, nama, deskripsi, fakultas, penjaga, harga FROM ruangan WHERE nama=:nama ";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->execute();
@@ -38,32 +38,6 @@ function item(){
     if($userView){
           $userView = json_encode($userView);
            echo '{"userData": ' .$userView . '}';
-       } else {
-          echo '{"error":{"text":"Unknown Ruangan"}}';
-       }
-  }
-  catch(PDOException $e) {
-      echo '{"error":{"text":'. $e->getMessage() .'}}';
-  }
-
-}
-
-function ruangan(){
-  $request = \Slim\Slim::getInstance()->request();
-  $data = json_decode($request->getBody());
-
-  try {
-    $db = getDB();
-    $userView ='';
-    $sql = "SELECT * FROM ruangan WHERE penjaga=:penjaga";
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam("penjaga", $data->penjaga, PDO::PARAM_STR);
-    $stmt->execute();
-    $userView = $stmt->fetchAll(PDO::FETCH_OBJ);
-    $db = null;
-    if($userView){
-          $userView = json_encode($userView);
-           echo '{"hasil": ' .$userView . '}';
        } else {
           echo '{"error":{"text":"Unknown Ruangan"}}';
        }
@@ -124,7 +98,6 @@ function signup() {
     $name=$data->name;
     $username=$data->username;
     $password=$data->password;
-    $tipe=$data->tipe;
 
     try {
 
@@ -150,14 +123,13 @@ function signup() {
             {
 
                 /*Inserting user values*/
-                $sql1="INSERT INTO users(username,password,email,name,tipe)VALUES(:username,:password,:email,:name, :tipe)";
+                $sql1="INSERT INTO users(username,password,email,name)VALUES(:username,:password,:email,:name)";
                 $stmt1 = $db->prepare($sql1);
                 $stmt1->bindParam("username", $username,PDO::PARAM_STR);
                 $password=hash('sha256',$data->password);
                 $stmt1->bindParam("password", $password,PDO::PARAM_STR);
                 $stmt1->bindParam("email", $email,PDO::PARAM_STR);
                 $stmt1->bindParam("name", $name,PDO::PARAM_STR);
-                $stmt1->bindParam("tipe", $tipe,PDO::PARAM_INT);
                 $stmt1->execute();
 
                 $userData=internalUserDetails($email);
@@ -446,18 +418,19 @@ function getImages(){
     $data = json_decode($request->getBody());
     $user_id=$data->user_id;
     $token=$data->token;
+    $username = $data->username;
 
     $systemToken=apiToken($user_id);
     try {
-        if(1){
+        if($systemToken == $token){
             $db = getDB();
-            $sql = "SELECT b64 FROM imagesData";
+            $sql = "SELECT * FROM users WHERE username = :username";
             $stmt = $db->prepare($sql);
-
+            $stmt->bindParam("username", $username, PDO::PARAM_STR);
             $stmt->execute();
-            $imageData = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $userData = $stmt->fetch(PDO::FETCH_OBJ);
             $db = null;
-            echo '{"imageData": ' . json_encode($imageData) . '}';
+            echo '{"userData": ' . json_encode($userData) . '}';
         } else{
             echo '{"error":{"text":"No access"}}';
         }
@@ -484,7 +457,7 @@ function pinjam(){
     $hasil = $stmt->fetch(PDO::FETCH_OBJ);
 
     if(empty($hasil)){
-        $sql = "INSERT INTO history (ruangan, tanggal,waktu,penyewa,penjaga) VALUES (:ruangan,:tanggal,:waktu,:penyewa,:penjaga)";
+        $sql = "INSERT INTO history (ruangan,tanggal,waktu,penyewa,penjaga) VALUES (:ruangan,:tanggal,:waktu,:penyewa,:penjaga)";
         $stmt1 = $db->prepare($sql);
         $stmt1->bindParam("ruangan", $ruangan, PDO::PARAM_STR);
         $stmt1->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
@@ -515,7 +488,7 @@ function history(){
   $data = json_decode($request->getBody());
   $penjaga = $data->penjaga;
   $db = getDB();
-  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date DESC LIMIT 5";
+  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date DESC LIMIT 2";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
   $stmt->execute();
@@ -525,7 +498,6 @@ function history(){
   $db = null;
 
 }
-
 
 
 ?>
