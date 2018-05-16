@@ -12,10 +12,18 @@
         <img src="assets/imgs/ccr.jpg">
       </ion-avatar>
       <h2>{{list.ruangan}}</h2>
-      <p (click)="expand(list)" >{{list.penyewa}} memesan ruangan untuk tanggal <span style="color: #81b9bf">{{list.tanggal}}</span> 
+      <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >
+      <p>{{list.penyewa}} memesan ruangan untuk tanggal <span style="color: #81b9bf">{{list.tanggal}}</span>
         pada pukul <span style="color: #81b9bf">{{list.waktu}}</span></p>
+        <p>...</p>
       <p>{{list.status}}</p>
-      <ion-note *ngIf="list.show" item-end>{{list.history_date}}</ion-note>
+      <ion-note item-end>{{list.history_date}}</ion-note>
+    </div>
+    <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
+    <p>{{list.penyewa}} memesan ruangan untuk tanggal <span style="color: #81b9bf">{{list.tanggal}}</span>
+      pada pukul <span style="color: #81b9bf">{{list.waktu}}</span></p>
+    <p>{{list.status}}</p>
+  </div>
     </ion-item>
   </ion-list>
   <button (click)="refresh()">Refresh</button>

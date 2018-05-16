@@ -114,7 +114,7 @@ export class StaffHistoryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffHistoryPage');
   }
-  expand(list){
+  expand(list): void{
     console.log(list);
     if(list.show == true){
       list.show = false;
