@@ -47,7 +47,7 @@ export class StaffHistoryPage {
       var i;
       for(i=0 ; i < this.responseData.hasil.length; i++){
         this.log[i] = this.responseData.hasil[i];
-
+        this.log[i].show = true;
         this.Temp = this.log[i].history_date.split(" ");
         //this.day = moment(this.log[i].history_date).format("dddd");
         this.date = this.Temp[0].split("-");
@@ -113,6 +113,12 @@ export class StaffHistoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffHistoryPage');
+  }
+  expand(list){
+    console.log(list);
+    if(list.show == true){
+      list.show = false;
+    }else{ list.show = true;}
   }
   refresh(){
     this.authService.postData(this.userData,'history').then((result) => {

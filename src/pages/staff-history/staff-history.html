@@ -7,13 +7,15 @@
   <ion-list>
 
 
-    <ion-item *ngFor = "let list of log">
+    <ion-item  *ngFor = "let list of log">
       <ion-avatar item-start>
         <img src="assets/imgs/ccr.jpg">
       </ion-avatar>
       <h2>{{list.ruangan}}</h2>
+      <p (click)="expand(list)" >{{list.penyewa}} memesan ruangan untuk tanggal <span style="color: #81b9bf">{{list.tanggal}}</span> 
+        pada pukul <span style="color: #81b9bf">{{list.waktu}}</span></p>
       <p>{{list.status}}</p>
-      <ion-note item-end>{{list.history_date}}</ion-note>
+      <ion-note *ngIf="list.show" item-end>{{list.history_date}}</ion-note>
     </ion-item>
   </ion-list>
   <button (click)="refresh()">Refresh</button>
