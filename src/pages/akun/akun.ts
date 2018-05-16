@@ -4,6 +4,7 @@ import { SettingsPage } from '../settings/settings';
 import { TabsPage } from '../tabs/tabs';
 import { PhotoPage } from '../photo/photo';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthService } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the AkunPage page.
@@ -19,10 +20,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AkunPage {
   public userDetails;
+  data : any;
+  responseData : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
-    private alertCtrl:AlertController, private sanitizer: DomSanitizer) {
-      const data = JSON.parse(localStorage.getItem('userData'));
-     this.userDetails = data.userData;
+    private alertCtrl:AlertController, private sanitizer: DomSanitizer, public authService : AuthService) {
+    this.data = JSON.parse(localStorage.getItem('userData'));
+     this.userDetails = this.data.userData;
      this.userDetails.profilpic = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,'+this.userDetails.profilpic);
   }
   public showPass = false;
@@ -44,7 +47,28 @@ export class AkunPage {
     }
   }
   saved(){
+    console.log('Userdetails:');
+    console.log(this.userDetails);
+    this.authService.postData(this.userDetails,'getImages').then((result) => {
+      this.responseData = result;
+      console.log(this.responseData);
+      if(this.responseData.imageData){
+        this.data.userData.profilpic = this.responseData.imageData.profilpic;
+        localStorage.setItem('userData', JSON.stringify(this.data.userData));
+      }
+      else{
+        let alert = this.alertCtrl.create({
+          title: 'error',
+          subTitle: 'error .',
+          buttons: ['Ok']
+        });
+      alert.present();
+      }
+    }, (err) => {
+      // Error log
+    });
     let alert = this.alertCtrl.create({
+
             title: 'Berhasil disimpan',
             buttons: ['Ok']
           });
