@@ -8,17 +8,13 @@ $app = new \Slim\Slim();
 $app->post('/item','item');
 $app->post('/login','login'); /* User login */
 $app->post('/signup','signup'); /* User Signup  */
-$app->get('/getFeed','getFeed'); /* User Feeds  */
-$app->post('/feed','feed'); /* User Feeds  */
-$app->post('/feedUpdate','feedUpdate'); /* User Feeds  */
-$app->post('/feedDelete','feedDelete'); /* User Feeds  */
 $app->post('/getImages', 'getImages');
 $app->post('/userImage','userImage'); /* User Images */
 $app->post('/getImages', 'getImages');
 $app->post('/pinjam', 'pinjam');
 $app->post('/history', 'history');
 $app->post('/ruangan', 'ruangan');
-
+$app->post('/listRuangan', 'listRuangan');
 
 $app->run();
 
@@ -238,183 +234,6 @@ function email() {
 }
 
 
-/* ### internal Username Details ### */
-function internalUserDetails($input) {
-
-    try {
-        $db = getDB();
-        $sql = "SELECT user_id, name, email, username FROM users WHERE username=:input or email=:input";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam("input", $input,PDO::PARAM_STR);
-        $stmt->execute();
-        $usernameDetails = $stmt->fetch(PDO::FETCH_OBJ);
-        $usernameDetails->token = apiToken($usernameDetails->user_id);
-        $db = null;
-        return $usernameDetails;
-
-    } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }
-
-}
-
-function getFeed(){
-
-
-    try {
-
-        if(1){
-            $feedData = '';
-            $db = getDB();
-
-                $sql = "SELECT * FROM feed  ORDER BY feed_id DESC LIMIT 15";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
-                $stmt->bindParam("lastCreated", $lastCreated, PDO::PARAM_STR);
-
-            $stmt->execute();
-            $feedData = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-            $db = null;
-
-            if($feedData)
-            echo '{"feedData": ' . json_encode($feedData) . '}';
-            else
-            echo '{"feedData": ""}';
-        } else{
-            echo '{"error":{"text":"No access"}}';
-        }
-
-    } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }
-
-}
-
-function feed(){
-    $request = \Slim\Slim::getInstance()->request();
-    $data = json_decode($request->getBody());
-    $user_id=$data->user_id;
-    $token=$data->token;
-    $lastCreated = $data->lastCreated;
-    $systemToken=apiToken($user_id);
-
-    try {
-
-        if($systemToken == $token){
-            $feedData = '';
-            $db = getDB();
-            if($lastCreated){
-                $sql = "SELECT * FROM feed WHERE user_id_fk=:user_id AND created < :lastCreated ORDER BY feed_id DESC LIMIT 5";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
-                $stmt->bindParam("lastCreated", $lastCreated, PDO::PARAM_STR);
-            }
-            else{
-                $sql = "SELECT * FROM feed WHERE user_id_fk=:user_id ORDER BY feed_id DESC LIMIT 5";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
-            }
-            $stmt->execute();
-            $feedData = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-            $db = null;
-
-            if($feedData)
-            echo '{"feedData": ' . json_encode($feedData) . '}';
-            else
-            echo '{"feedData": ""}';
-        } else{
-            echo '{"error":{"text":"No access"}}';
-        }
-
-    } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }
-
-}
-
-function feedUpdate(){
-
-    $request = \Slim\Slim::getInstance()->request();
-    $data = json_decode($request->getBody());
-    $user_id=$data->user_id;
-    $token=$data->token;
-    $feed=$data->feed;
-
-    $systemToken=apiToken($user_id);
-
-    try {
-
-        if($systemToken == $token){
-
-
-            $feedData = '';
-            $db = getDB();
-            $sql = "INSERT INTO feed ( feed, created, user_id_fk) VALUES (:feed,:created,:user_id)";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam("feed", $feed, PDO::PARAM_STR);
-            $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
-            $created = time();
-            $stmt->bindParam("created", $created, PDO::PARAM_INT);
-            $stmt->execute();
-
-
-
-            $sql1 = "SELECT * FROM feed WHERE user_id_fk=:user_id ORDER BY feed_id DESC LIMIT 1";
-            $stmt1 = $db->prepare($sql1);
-            $stmt1->bindParam("user_id", $user_id, PDO::PARAM_INT);
-            $stmt1->execute();
-            $feedData = $stmt1->fetch(PDO::FETCH_OBJ);
-
-
-            $db = null;
-            echo '{"feedData": ' . json_encode($feedData) . '}';
-        } else{
-            echo '{"error":{"text":"No access"}}';
-        }
-
-    } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }
-
-}
-
-
-
-function feedDelete(){
-    $request = \Slim\Slim::getInstance()->request();
-    $data = json_decode($request->getBody());
-    $user_id=$data->user_id;
-    $token=$data->token;
-    $feed_id=$data->feed_id;
-
-    $systemToken=apiToken($user_id);
-
-    try {
-
-        if($systemToken == $token){
-            $feedData = '';
-            $db = getDB();
-            $sql = "Delete FROM feed WHERE user_id_fk=:user_id AND feed_id=:feed_id";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
-            $stmt->bindParam("feed_id", $feed_id, PDO::PARAM_INT);
-            $stmt->execute();
-
-
-            $db = null;
-            echo '{"success":{"text":"Feed deleted"}}';
-        } else{
-            echo '{"error":{"text":"No access"}}';
-        }
-
-    } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }
-
-}
-
 function userImage(){
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());
@@ -525,6 +344,51 @@ function history(){
   $db = null;
 
 }
+
+function listRuangan(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+  $fakultas = $data;
+  $db = getDB();
+  $sql = "SELECT nama FROM ruangan WHERE fakultas=:fakultas";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("fakultas", $fakultas, PDO::PARAM_STR);
+  $stmt->execute();
+  $hasil = $stmt->fetchAll(PDO::FETCH_OBJ);
+  $hasil = json_encode($hasil);
+  echo '{"hasil": ' . $hasil . '}';
+  $db = null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
