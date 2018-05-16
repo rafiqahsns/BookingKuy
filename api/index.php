@@ -513,7 +513,7 @@ function history(){
   $data = json_decode($request->getBody());
   $penjaga = $data->penjaga;
   $db = getDB();
-  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date";
+  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date DESC LIMIT 5";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
   $stmt->execute();

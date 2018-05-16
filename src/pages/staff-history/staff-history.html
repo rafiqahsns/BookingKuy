@@ -7,15 +7,25 @@
   <ion-list>
 
 
-    <ion-item *ngFor = "let list of arr">
+    <ion-item  *ngFor = "let list of log">
       <ion-avatar item-start>
         <img src="assets/imgs/ccr.jpg">
       </ion-avatar>
       <h2>{{list.ruangan}}</h2>
+      <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >
+      <p><span style="color: #c75b39">{{list.penyewa}}</span> memesan ruangan untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
+        pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
+        <p>...</p>
       <p>{{list.status}}</p>
-      <br>
+      <ion-note item-end>{{list.history_date}}</ion-note>
+    </div>
+    <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
+    <p><span style="color: #c75b39">{{list.penyewa}}</span> memesan ruangan untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
+      pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
+    <p>{{list.status}}</p>
+  </div>
     </ion-item>
-    <button (click)="refresh()">Refresh</button>
   </ion-list>
+  <button (click)="refresh()">Refresh</button>
 
 </ion-content>

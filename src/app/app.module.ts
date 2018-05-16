@@ -81,6 +81,7 @@ import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
     ChatPage,
     SettingsPage,
     PhotoPage,
+    EditRuanganPage
   ],
   providers: [
     StatusBar,
