@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StaffTabsPage } from '../staff-tabs/staff-tabs';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { AlertController } from 'ionic-angular';
+import { StaffRegisterPage } from '../staff-register/staff-register';
 /**
  * Generated class for the StaffLoginPage page.
  *
@@ -48,6 +49,10 @@ export class StaffLoginPage {
       // Error log
     });
   }
+  register(){
+    this.navCtrl.push(StaffRegisterPage);
+  }
+
   showPassword() {
     this.showPass = !this.showPass;
     if(this.showPass){

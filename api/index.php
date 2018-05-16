@@ -124,6 +124,7 @@ function signup() {
     $name=$data->name;
     $username=$data->username;
     $password=$data->password;
+    $tipe=$data->tipe;
 
     try {
 
@@ -149,13 +150,14 @@ function signup() {
             {
 
                 /*Inserting user values*/
-                $sql1="INSERT INTO users(username,password,email,name)VALUES(:username,:password,:email,:name)";
+                $sql1="INSERT INTO users(username,password,email,name,tipe)VALUES(:username,:password,:email,:name, :tipe)";
                 $stmt1 = $db->prepare($sql1);
                 $stmt1->bindParam("username", $username,PDO::PARAM_STR);
                 $password=hash('sha256',$data->password);
                 $stmt1->bindParam("password", $password,PDO::PARAM_STR);
                 $stmt1->bindParam("email", $email,PDO::PARAM_STR);
                 $stmt1->bindParam("name", $name,PDO::PARAM_STR);
+                $stmt1->bindParam("tipe", $tipe,PDO::PARAM_INT);
                 $stmt1->execute();
 
                 $userData=internalUserDetails($email);

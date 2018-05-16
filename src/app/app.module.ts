@@ -29,6 +29,7 @@ import { DetailPinjamPage } from '../pages/detail-pinjam/detail-pinjam';
 import { PhotoPage } from '../pages/photo/photo';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
+import { StaffRegisterPage } from '../pages/staff-register/staff-register';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
     StaffSettingPage,
     SettingsPage,
     PhotoPage,
-    EditRuanganPage
+    EditRuanganPage,
+    StaffRegisterPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -81,7 +83,8 @@ import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
     ChatPage,
     SettingsPage,
     PhotoPage,
-    EditRuanganPage
+    EditRuanganPage,
+    StaffRegisterPage
   ],
   providers: [
     StatusBar,
