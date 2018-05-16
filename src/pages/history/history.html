@@ -3,45 +3,29 @@
     <ion-title>Riwayat</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content class="list-avatar-page">
   <ion-list>
 
-    <ion-list-header>Kemarin</ion-list-header>
 
-    <ion-item>
+    <ion-item  *ngFor = "let list of log">
       <ion-avatar item-start>
-        <img src="assets/imgs/ccr.jpg">
+        <img [src]="list.picture">
       </ion-avatar>
-      <h2>RK U 2.01</h2>
-      <p>Penanggung jawab telah mengonfirmasi.</p>
-      <ion-note item-end>11:11 pm</ion-note>
+      <h2>{{list.ruangan}}</h2>
+      <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >
+      <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
+        pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
+        <p>...</p>
+      <p>Status : {{list.status}}</p>
+      <ion-note item-end>Tanggal memesan : {{list.history_date}}</ion-note>
+    </div>
+    <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
+      <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
+      pada pukul <span style="color: #c75b39">Tanggal memesan : {{list.waktu}}</span></p>
+    <p>Status : {{list.status}}</p>
+  </div>
     </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/ccr.jpg">
-      </ion-avatar>
-      <h2>RK X 3.01</h2>
-      <p>Peminjaman dibatalkan</p>
-      <ion-note item-end>8:54 pm</ion-note>
-    </ion-item>
-
   </ion-list>
-
-  <ion-list>
-
-    <ion-list-header>Minggu Lalu</ion-list-header>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/ccr.jpg">
-      </ion-avatar>
-      <h2>Audit CCR</h2>
-      <p>Peminjaman telah selesai.</p>
-      <ion-note item-end>Sun</ion-note>
-    </ion-item>
-
-  </ion-list>
+  <button (click)="refresh()">Refresh</button>
 
 </ion-content>

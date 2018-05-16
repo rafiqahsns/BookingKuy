@@ -14,6 +14,7 @@ $app->post('/getImages', 'getImages');
 $app->post('/pinjam', 'pinjam');
 $app->post('/history', 'history');
 $app->post('/ruangan', 'ruangan');
+$app->post('/ruanganImage', 'ruanganImage');
 $app->post('/listRuangan', 'listRuangan');
 
 $app->run();
@@ -285,6 +286,26 @@ function getImages(){
     }
 }
 
+function ruanganImage(){
+    $request = \Slim\Slim::getInstance()->request();
+    $data = json_decode($request->getBody());
+    $nama = $data->ruangan;
+    try {
+        
+            $db = getDB();
+            $sql = "SELECT picture FROM ruangan WHERE nama = :nama";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam("nama", $nama, PDO::PARAM_STR);
+            $stmt->execute();
+            $image = $stmt->fetch(PDO::FETCH_OBJ);
+            $db = null;
+            echo '{"image": ' . json_encode($image) . '}';
+      
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
 function pinjam(){
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());
@@ -334,7 +355,7 @@ function history(){
   $data = json_decode($request->getBody());
   $penjaga = $data->penjaga;
   $db = getDB();
-  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga ORDER BY history_date DESC LIMIT 2";
+  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga or penyewa=:penjaga ORDER BY history_date DESC LIMIT 10";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
   $stmt->execute();
