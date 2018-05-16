@@ -9,7 +9,7 @@
 
     <ion-item  *ngFor = "let list of log">
       <ion-avatar item-start>
-        <img src="assets/imgs/ccr.jpg">
+        <img [src]="list.picture">
       </ion-avatar>
       <h2>{{list.ruangan}}</h2>
       <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >

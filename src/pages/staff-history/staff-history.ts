@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
+import { DomSanitizer } from '@angular/platform-browser';
 import moment from 'moment';
 
 /**
@@ -20,6 +21,7 @@ export class StaffHistoryPage {
   userDetails: any;
   log = [];
   responseData : any;
+  responseData2 : any;
   result: any;
   dateNow: any;
   datePinjam: any;
@@ -29,8 +31,9 @@ export class StaffHistoryPage {
   Temp: any;
   //day: any;
   date: any;
+  public n = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private authService: AuthService) {
+    private authService: AuthService, private sanitizer: DomSanitizer) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.userData.penjaga = this.userDetails.name;
@@ -39,14 +42,30 @@ export class StaffHistoryPage {
     //this.time = Number(moment().format('HHmmss'));
     //console.log(this.date);
     //console.log(this.time);
+    var i;
     this.authService.postData(this.userData,'history').then((result) => {
     this.responseData = result;
     if(this.responseData.hasil){
       console.log(this.responseData);
 
-      var i;
       for(i=0 ; i < this.responseData.hasil.length; i++){
+        // entah kenapa harus ditaro ke variable laen dulu gabisa langsung ke this.log[i]
         this.log[i] = this.responseData.hasil[i];
+        this.authService.postData(this.log[i], "ruanganImage").then(
+          (res) => {
+            this.responseData2 = res;
+            console.log('res:');
+            console.log(this.log[this.n]);
+            this.log[this.n].picture = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.responseData2.image.picture);
+            this.n = this.n+1;
+
+            //console.log(this.log[i].picture);
+            },
+          err => {
+              console.log('error fetching image');
+            }
+          );
+
         this.log[i].show = true;
         this.Temp = this.log[i].history_date.split(" ");
         //this.day = moment(this.log[i].history_date).format("dddd");
@@ -69,6 +88,7 @@ export class StaffHistoryPage {
         this.timeSelesai = Number(this.timeSelesai.replace(/\,/g, ''));
 
         this.dateNow = Number(moment().format('YYYYMMDD'));
+
         if(this.dateNow > this.datePinjam){
             if(this.log[i].status == "0"){
               this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
@@ -105,11 +125,15 @@ export class StaffHistoryPage {
           }
         }
     }
+    console.log('finished constructing');
+    this.n = 0;
   }
     }, (err) => {
       // Error log
     });
+
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StaffHistoryPage');
@@ -121,84 +145,102 @@ export class StaffHistoryPage {
     }else{ list.show = true;}
   }
   refresh(){
-  const data = JSON.parse(localStorage.getItem('userData'));
-  this.userDetails = data.userData;
-  this.userData.penjaga = this.userDetails.name;
-  //this.date = moment().format('YYYY-MM-DD HH:mm:ss');
-  //this.date = moment(this.date).format('dddd');
-  //this.time = Number(moment().format('HHmmss'));
-  //console.log(this.date);
-  //console.log(this.time);
-  this.authService.postData(this.userData,'history').then((result) => {
-  this.responseData = result;
-  if(this.responseData.hasil){
-    console.log(this.responseData);
-
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.userData;
+    this.userData.penjaga = this.userDetails.name;
+    //this.date = moment().format('YYYY-MM-DD HH:mm:ss');
+    //this.date = moment(this.date).format('dddd');
+    //this.time = Number(moment().format('HHmmss'));
+    //console.log(this.date);
+    //console.log(this.time);
     var i;
-    for(i=0 ; i < this.responseData.hasil.length; i++){
-      this.log[i] = this.responseData.hasil[i];
-      this.log[i].show = true;
-      this.Temp = this.log[i].history_date.split(" ");
-      //this.day = moment(this.log[i].history_date).format("dddd");
-      this.date = this.Temp[0].split("-");
-      //console.log(this.Temp[0]);
-      //console.log(this.date);
-      //console.log(this.time);
-      this.log[i].history_date = this.date[2] + "-" + this.date[1] + "-" + this.date[0] + " " + this.Temp[1];
-      //console.log(this.day);
+    this.authService.postData(this.userData,'history').then((result) => {
+    this.responseData = result;
+    if(this.responseData.hasil){
+      console.log(this.responseData);
 
-      this.Temp = this.log[i].tanggal.split("-").join();
-      this.datePinjam = Number(this.Temp.replace(/\,/g,''));
+      for(i=0 ; i < this.responseData.hasil.length; i++){
+        // entah kenapa harus ditaro ke variable laen dulu gabisa langsung ke this.log[i]
+        this.log[i] = this.responseData.hasil[i];
+        this.authService.postData(this.log[i], "ruanganImage").then(
+          (res) => {
+            this.responseData2 = res;
+            console.log('res:');
+            console.log(this.log[this.n]);
+            this.log[this.n].picture = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.responseData2.image.picture);
+            this.n = this.n+1;
 
-      this.Temp = this.log[i].waktu.split("-").join();
-      this.timePinjam = this.Temp[0].split(":").join();
-      this.timeSelesai = this.Temp[1].split(":").join();
-      this.timePinjam += ",00";
-      this.timeSelesai += ",00";
-      this.timePinjam = Number(this.timePinjam.replace(/\,/g, ''));
-      this.timeSelesai = Number(this.timeSelesai.replace(/\,/g, ''));
+            //console.log(this.log[i].picture);
+            },
+          err => {
+              console.log('error fetching image');
+            }
+          );
 
-      this.dateNow = Number(moment().format('YYYYMMDD'));
-      if(this.dateNow > this.datePinjam){
-          if(this.log[i].status == "0"){
-            this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
-          } else{
-            this.log[i].status = "Peminjaman ruangan telah berakhir";
-          }
+        this.log[i].show = true;
+        this.Temp = this.log[i].history_date.split(" ");
+        //this.day = moment(this.log[i].history_date).format("dddd");
+        this.date = this.Temp[0].split("-");
+        //console.log(this.Temp[0]);
+        //console.log(this.date);
+        //console.log(this.time);
+        this.log[i].history_date = this.date[2] + "-" + this.date[1] + "-" + this.date[0] + " " + this.Temp[1];
+        //console.log(this.day);
 
-      } else if (this.dateNow == this.datePinjam){
-          this.timeNow = Number(moment().format('HHmmss'));
-          if(this.timeNow >= this.timePinjam && this.timeNow <= this.timeSelesai){
-              if(this.log[i].status == "0"){
-                this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
-              } else{
-                this.log[i].status = "Ruangan sedang dipakai";
-              }
-          } else if (this.timeNow < this.timePinjam){
+        this.Temp = this.log[i].tanggal.split("-").join();
+        this.datePinjam = Number(this.Temp.replace(/\,/g,''));
+
+        this.Temp = this.log[i].waktu.split("-").join();
+        this.timePinjam = this.Temp[0].split(":").join();
+        this.timeSelesai = this.Temp[1].split(":").join();
+        this.timePinjam += ",00";
+        this.timeSelesai += ",00";
+        this.timePinjam = Number(this.timePinjam.replace(/\,/g, ''));
+        this.timeSelesai = Number(this.timeSelesai.replace(/\,/g, ''));
+
+        this.dateNow = Number(moment().format('YYYYMMDD'));
+
+        if(this.dateNow > this.datePinjam){
             if(this.log[i].status == "0"){
-              this.log[i].status = "Menunggu konfirmasi";
+              this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
             } else{
-              this.log[i].status = "Ruangan telah dikonfirmasi";
+              this.log[i].status = "Peminjaman ruangan telah berakhir";
             }
-          } else if( this.timeNow > this.timeSelesai){
-              if(this.log[i].status == "0"){
-                this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
-              } else{
-                this.log[i].status = "Peminjaman ruangan telah berakhir";
-              }
-          }
-      } else{
-        if(this.log[i].status == "0"){
-          this.log[i].status = "Menunggu konfirmasi";
-        } else{
-          this.log[i].status = "Ruangan telah dikonfirmasi";
-              }
-            }
-        }
-      }
-        }, (err) => {
-          // Error log
-        });
-      }
 
+        } else if (this.dateNow == this.datePinjam){
+            this.timeNow = Number(moment().format('HHmmss'));
+            if(this.timeNow >= this.timePinjam && this.timeNow <= this.timeSelesai){
+                if(this.log[i].status == "0"){
+                  this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
+                } else{
+                  this.log[i].status = "Ruangan sedang dipakai";
+                }
+            } else if (this.timeNow < this.timePinjam){
+              if(this.log[i].status == "0"){
+                this.log[i].status = "Menunggu konfirmasi";
+              } else{
+                this.log[i].status = "Ruangan telah dikonfirmasi";
+              }
+            } else if( this.timeNow > this.timeSelesai){
+                if(this.log[i].status == "0"){
+                  this.log[i].status = "Ruangan tidak dikonfirmasi, permintaan dibatalkan";
+                } else{
+                  this.log[i].status = "Peminjaman ruangan telah berakhir";
+                }
+            }
+        } else{
+          if(this.log[i].status == "0"){
+            this.log[i].status = "Menunggu konfirmasi";
+          } else{
+            this.log[i].status = "Ruangan telah dikonfirmasi";
+          }
+        }
+    }
+    console.log('finished constructing');
+    this.n = 0;
+  }
+    }, (err) => {
+      // Error log
+    });
+      }
 }
