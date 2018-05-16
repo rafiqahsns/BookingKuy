@@ -25,8 +25,9 @@ export class AkunPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
     private alertCtrl:AlertController, private sanitizer: DomSanitizer, public authService : AuthService) {
     this.data = JSON.parse(localStorage.getItem('userData'));
-     this.userDetails = this.data.userData;
-     this.userDetails.profilpic = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,'+this.userDetails.profilpic);
+     this.userDetails = this.data;
+     //console.log(this.userDetails.userData);
+     this.userDetails.userData.profilpic = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,'+this.userDetails.userData.profilpic);
   }
   public showPass = false;
   public type = 'password';
@@ -47,22 +48,28 @@ export class AkunPage {
     }
   }
   saved(){
-    console.log('Userdetails:');
-    console.log(this.userDetails);
-    this.authService.postData(this.userDetails,'getImages').then((result) => {
+    //console.log('Userdetails:');
+    //console.log(this.userDetails.profilpic.changingThisBreaksApplicationSecurity);
+    this.userDetails.userData.profilpic = this.userDetails.userData.profilpic.changingThisBreaksApplicationSecurity;
+    this.userDetails.userData.profilpic = this.userDetails.userData.profilpic.replace('data:image/png;base64','');
+    //localStorage.setItem('userData', JSON.stringify(this.userDetails));
+    //console.log(this.userDetails);
+    this.authService.postData(this.userDetails.userData,'getImages').then((result) => {
       this.responseData = result;
-      console.log(this.responseData);
-      if(this.responseData.imageData){
-        this.data.userData.profilpic = this.responseData.imageData.profilpic;
-        localStorage.setItem('userData', JSON.stringify(this.data.userData));
+      //console.log(this.responseData);
+      if(this.responseData.userData){
+          this.userDetails.userData.profilpic = this.responseData.userData.profilpic;
+            //console.log(this.responseData);
+            localStorage.setItem('userData', JSON.stringify(this.userDetails));
+            console.log(this.userDetails);
       }
       else{
-        let alert = this.alertCtrl.create({
-          title: 'error',
-          subTitle: 'error .',
-          buttons: ['Ok']
-        });
-      alert.present();
+            let alert = this.alertCtrl.create({
+              title: 'error',
+              subTitle: 'error .',
+              buttons: ['Ok']
+            });
+            alert.present();
       }
     }, (err) => {
       // Error log
@@ -70,9 +77,19 @@ export class AkunPage {
     let alert = this.alertCtrl.create({
 
             title: 'Berhasil disimpan',
-            buttons: ['Ok']
-          });
-          alert.present();
-          this.navCtrl.setRoot(SettingsPage);
+            subTitle: 'Silakan tunggu sesaat.',
+            buttons: [{
+            text: 'Ok',
+            handler: () => {
+              let navTransition = alert.dismiss();
+              navTransition.then(() => {
+                  window.location.reload();
+              });
+            }
+            }],
+            enableBackdropDismiss: false
+    });
+    alert.present();
+
   }
 }

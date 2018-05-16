@@ -54,7 +54,7 @@ export class StudentLoginPage {
     this.navCtrl.push(StudentRegisterPage);
   }
   TabsPush(){
-    this.navCtrl.push(TabsPage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   showPassword() {

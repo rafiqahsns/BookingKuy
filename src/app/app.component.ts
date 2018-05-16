@@ -16,6 +16,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       const data = JSON.parse(localStorage.getItem('userData'));
+      console.log(data);
       if(data){
         this.status = data.userData.tipe;
         if(this.status == '0'){
