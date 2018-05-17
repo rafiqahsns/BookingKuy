@@ -51,7 +51,7 @@ export class StaffHistoryPage {
       for(i=0 ; i < this.responseData.hasil.length; i++){
         // entah kenapa harus ditaro ke variable laen dulu gabisa langsung ke this.log[i]
         this.log[i] = this.responseData.hasil[i];
-        this.authService.postData(this.log[i], "ruanganImage").then(
+        this.authService.postData(this.log[i].ruangan, "ruanganImage").then(
           (res) => {
             this.responseData2 = res;
             console.log('res:');
@@ -162,7 +162,7 @@ export class StaffHistoryPage {
       for(i=0 ; i < this.responseData.hasil.length; i++){
         // entah kenapa harus ditaro ke variable laen dulu gabisa langsung ke this.log[i]
         this.log[i] = this.responseData.hasil[i];
-        this.authService.postData(this.log[i], "ruanganImage").then(
+        this.authService.postData(this.log[i].ruangan, "ruanganImage").then(
           (res) => {
             this.responseData2 = res;
             console.log('res:');
