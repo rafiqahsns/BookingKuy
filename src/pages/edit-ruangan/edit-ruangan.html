@@ -15,12 +15,17 @@
 
 <ion-content padding>
   <ion-list>
+    <ion-avatar item-start>
+      <img [src]="ruangan.picture">
+    </ion-avatar>
     <ion-item>
-      <b>Nama Ruangan:</b> RK U 2.03
+      <ion-label floating>Nama : </ion-label>
+      <ion-input type="text" value="{{ruangan.nama}}"></ion-input>
     </ion-item>
 
     <ion-item>
-      <b>Lokasi:</b> FMIPA
+      <ion-label floating>Lokasi (Fakultas) : </ion-label>
+      <ion-input type="text" value="{{ruangan.fakultas}}"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -30,7 +35,7 @@
 
     <ion-item>
       <ion-label floating>Deskripsi</ion-label>
-      <ion-textarea type="text"></ion-textarea>
+      <ion-textarea type="text" value="{{ruangan.deskripsi}}"></ion-textarea>
     </ion-item>
 
     <br>

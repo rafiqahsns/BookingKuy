@@ -17,6 +17,7 @@ import { EditRuanganPage } from '../edit-ruangan/edit-ruangan'
 })
 export class StaffRuanganPage {
   ruangan : any =  [''];
+  ruanganData : any;
   responseData : any;
   userData = {"penjaga": ""};
   userDetails: any;
@@ -40,9 +41,11 @@ export class StaffRuanganPage {
   }
   }, (err) => {
     // Error log
-  }); 
+  });
 }
-  editt(){
+  editt(list){
+    this.ruanganData = list;
+    localStorage.setItem('ruanganDetails', JSON.stringify(this.ruanganData));
     this.navCtrl.push(EditRuanganPage);
   }
   ionViewDidLoad() {
@@ -76,5 +79,3 @@ export class StaffRuanganPage {
     alert.present();
   }
   }
-
-

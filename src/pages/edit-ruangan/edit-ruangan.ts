@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Generated class for the EditRuanganPage page.
  *
@@ -14,8 +14,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'edit-ruangan.html',
 })
 export class EditRuanganPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  ruangan : any;
+  constructor(public navCtrl: NavController, public navParams: NavParams
+  , private sanitizer: DomSanitizer) {
+    const data = JSON.parse(localStorage.getItem('ruanganDetails'));
+    this.ruangan = data;
+    this.ruangan.picture = this.sanitizer.bypassSecurityTrustUrl(this.ruangan.picture.changingThisBreaksApplicationSecurity)
   }
 
   ionViewDidLoad() {
