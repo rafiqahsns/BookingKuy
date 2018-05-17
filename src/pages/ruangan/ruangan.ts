@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { WaktuNextPage } from '../waktu-next/waktu-next';
 import { AuthService } from '../../providers/auth-service/auth-service';
-
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Generated class for the RuanganPage page.
  *
@@ -21,8 +21,9 @@ export class RuanganPage {
   public viewDetail=false;
   ruanganData: any;
   responseData: any;
+  responseData2: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthService,
-  private alertCtrl: AlertController) {
+  private alertCtrl: AlertController, private sanitizer: DomSanitizer) {
     this.initializeItems();
   }
 
@@ -78,11 +79,21 @@ export class RuanganPage {
       console.log("Selected Item", item);
       this.authService.postData(this.ruanganData,'item').then((result) => {
         this.responseData = result;
+        this.authService.postData(this.responseData.userData.nama, "ruanganImage").then(
+          (res) => {
+            this.responseData2 = res;
+            this.responseData.userData.picture = this.responseData2.image.picture;
+            if(this.responseData.userData){
+              localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData));
+              this.navCtrl.push(WaktuNextPage);
+            }
+          },
+          err => {
+              console.log('error fetching image');
+            }
+          );
 
-        console.log(this.responseData);
         if(this.responseData.userData){
-          localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData));
-          this.navCtrl.push(WaktuNextPage);
         }
         else{
           let alert = this.alertCtrl.create({

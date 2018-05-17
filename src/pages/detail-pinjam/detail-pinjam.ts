@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, AlertController} from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { AuthService } from "../../providers/auth-service/auth-service";
-
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Generated class for the DetailPinjamPage page.
  *
@@ -25,14 +25,19 @@ export class DetailPinjamPage {
   pinjamData = {"ruangan": "","date": "","time": "","penyewa": "", "penjaga":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
-    private alertCtrl:AlertController, public authService: AuthService) {
+    private alertCtrl:AlertController, public authService: AuthService, private sanitizer: DomSanitizer) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userDetails = data.userData;
       const ruangan = JSON.parse(localStorage.getItem('ruanganDetails'));
+      console.log(ruangan);
+      console.log('^ ruangan');
       const pinjam = JSON.parse(localStorage.getItem('pinjamDetails'));
       //console.log(ruangan);
       //console.log(pinjam);
       this.ruanganDetails = ruangan.userData;
+      this.ruanganDetails.picture = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.ruanganDetails.picture);
+      console.log('var');
+      console.log(this.ruanganDetails);
       this.pinjamDate = pinjam.date;
       this.pinjamTime = pinjam.time;
       var i;
@@ -41,7 +46,6 @@ export class DetailPinjamPage {
           this.harga += Number(this.ruanganDetails.harga);
         }
       }
-      //console.log(this.pinjamTime.length);
   }
 
   ionViewDidLoad() {

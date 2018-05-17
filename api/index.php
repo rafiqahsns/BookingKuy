@@ -289,7 +289,7 @@ function getImages(){
 function ruanganImage(){
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());
-    $nama = $data->ruangan;
+    $nama = $data;
     try {
         
             $db = getDB();
