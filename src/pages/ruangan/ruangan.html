@@ -22,14 +22,18 @@
 <ion-content>
     <ion-list>
         <ion-item-divider color="light">FMIPA</ion-item-divider>
-        <button ion-item *ngFor="let item of fmipa" (click)="nextpage(item)">
+        <div *ngFor="let item of fmipa">
+        <button ion-item *ngIf="matchesSearch(item.nama)" (click)="nextpage(item)">
             {{ item.nama }}
           </button>
+        </div>
       </ion-list>
-    <ion-list>
+      <ion-list>
           <ion-item-divider color="light">FAPERTA</ion-item-divider>
-          <button ion-item *ngFor="let item of faperta" (click)="nextpage(item)">
+          <div *ngFor="let item of faperta">
+          <button ion-item *ngIf="matchesSearch(item.nama)" (click)="nextpage(item)">
               {{ item.nama }}
             </button>
-      </ion-list>
+          </div>
+        </ion-list>
 </ion-content>

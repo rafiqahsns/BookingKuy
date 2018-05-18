@@ -16,6 +16,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: 'ruangan.html',
 })
 export class RuanganPage {
+  search = '';
   fmipa : any;
   faperta : any;
   public viewDetail=false;
@@ -55,24 +56,19 @@ export class RuanganPage {
   }
 
   onInput(ev) {
-  // Reset items back to all of the items
   this.initializeItems();
-
-  // set val to the value of the ev target
   var val = ev.target.value;
-
-  // if the value is an empty string don't filter the items
-  if (val && val.trim() != '') {
-    this.fmipa = this.fmipa.filter((item) => {
-      return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-    })
-  }
-  if (val && val.trim() != '') {
-    this.faperta = this.faperta.filter((item) => {
-      return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-    })
-  }
+  this.search = val.toLowerCase();
+  console.log(this.search);
 }
+  matchesSearch(s){
+    var i;
+    s = s.toLowerCase();
+    for(i=0; i < this.search.length; i++){
+      if(s[i] != this.search[i]) return false;
+    }
+    return true;
+  }
 
   nextpage(item: string){
       this.ruanganData = item;
