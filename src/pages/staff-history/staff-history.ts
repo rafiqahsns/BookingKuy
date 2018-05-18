@@ -57,6 +57,7 @@ export class StaffHistoryPage {
             console.log('res:');
             console.log(this.log[this.n]);
             this.log[this.n].picture = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.responseData2.image.picture);
+            this.log[this.n].nama = this.responseData2.image.nama;
             this.n = this.n+1;
 
             //console.log(this.log[i].picture);
@@ -168,6 +169,7 @@ export class StaffHistoryPage {
             console.log('res:');
             console.log(this.log[this.n]);
             this.log[this.n].picture = this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.responseData2.image.picture);
+            this.log[this.n].nama = this.responseData2.image.nama;
             this.n = this.n+1;
 
             //console.log(this.log[i].picture);

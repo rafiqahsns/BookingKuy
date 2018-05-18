@@ -11,7 +11,7 @@
       <ion-avatar item-start>
         <img [src]="list.picture">
       </ion-avatar>
-      <h2>{{list.ruangan}}</h2>
+      <h2>{{list.nama}}</h2>
       <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >
       <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
         pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>

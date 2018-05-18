@@ -323,13 +323,12 @@ function getImages(){
 function ruanganImage(){
     $request = \Slim\Slim::getInstance()->request();
     $data = json_decode($request->getBody());
-    $nama = $data;
     try {
         
             $db = getDB();
-            $sql = "SELECT picture FROM ruangan WHERE nama = :nama";
+            $sql = "SELECT picture, nama FROM ruangan WHERE id_ruangan = :id_ruangan";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam("nama", $nama, PDO::PARAM_STR);
+            $stmt->bindParam("id_ruangan", $data, PDO::PARAM_STR);
             $stmt->execute();
             $image = $stmt->fetch(PDO::FETCH_OBJ);
             $db = null;
