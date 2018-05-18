@@ -20,12 +20,15 @@
     </ion-avatar>
     <ion-item>
       <ion-label floating>Nama : </ion-label>
-      <ion-input type="text" value="{{ruangan.nama}}"></ion-input>
+      <ion-input type="text" value="{{ruangan.nama}}" [(ngModel)]="ruangan.nama"></ion-input>
     </ion-item>
-
+    <ion-item>
+      <ion-label floating>Harga :</ion-label>
+      <ion-input type="number" step="any" value="{{ruangan.harga}}" [(ngModel)]="ruangan.harga"></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label floating>Lokasi (Fakultas) : </ion-label>
-      <ion-input type="text" value="{{ruangan.fakultas}}"></ion-input>
+      <ion-input type="text" value="{{ruangan.fakultas}}" [(ngModel)]="ruangan.fakultas"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -35,7 +38,7 @@
 
     <ion-item>
       <ion-label floating>Deskripsi</ion-label>
-      <ion-textarea type="text" value="{{ruangan.deskripsi}}"></ion-textarea>
+      <ion-textarea type="text" value="{{ruangan.deskripsi}}" [(ngModel)]="ruangan.deskripsi"></ion-textarea>
     </ion-item>
 
     <br>
