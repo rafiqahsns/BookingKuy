@@ -34,7 +34,7 @@ function item(){
   try {
     $db = getDB();
     $userView ='';
-    $sql = "SELECT id_ruangan, nama, deskripsi, fakultas, penjaga, harga FROM ruangan WHERE nama=:nama ";
+    $sql = "SELECT * FROM ruangan WHERE nama=:nama ";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->execute();
@@ -83,20 +83,17 @@ function ruangan(){
 function editRuangan(){
   $request = \Slim\Slim::getInstance()->request();
   $data = json_decode($request->getBody());
-  $id_ruangan = $data->id_ruangan;
-  $nama = $data->nama;
-  $deskripsi = $data->deskripsi;
-  $fakultas = $data->fakultas;
-  $harga = $data->harga;
   try {
     $db = getDB();
-    $sql = "UPDATE ruangan SET nama=:nama, deskripsi=:deskripsi, harga=:harga, fakultas=:fakultas WHERE id_ruangan=:id_ruangan";
+    $sql = "UPDATE ruangan SET nama=:nama, deskripsi=:deskripsi, harga=:harga, fakultas=:fakultas, picture=:picture, kapasitas=:kapasitas WHERE id_ruangan=:id_ruangan";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->bindParam("deskripsi", $data->deskripsi, PDO::PARAM_STR);
     $stmt->bindParam("fakultas", $data->fakultas, PDO::PARAM_STR);
     $stmt->bindParam("id_ruangan", $data->id_ruangan, PDO::PARAM_INT);
     $stmt->bindParam("harga", $data->harga, PDO::PARAM_STR);
+    $stmt->bindParam("picture", $data->picture, PDO::PARAM_STR);
+    $stmt->bindParam("kapasitas", $data->kapasitas, PDO::PARAM_INT);
     $stmt->execute();
     $db = null;
     $data = json_encode($data);
