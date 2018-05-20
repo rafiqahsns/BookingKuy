@@ -19,14 +19,14 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 })
 export class StaffTambahRuanganPage {
   responseData : any;
-  ruangan = {"nama": "","deskripsi": "", "harga": 0.0,"fakultas": "","penjaga":0 ,"picture": {} };
+  ruangan :any;
   ori = {};
   show = false;
   constructor(public navCtrl: NavController, public authService:AuthService, public navParams: NavParams
   , private sanitizer: DomSanitizer, public alertCtrl: AlertController, private camera: Camera) {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.ruangan.penjaga = data.userData.user_id;
-    this.ruangan.picture = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,');
+    this.ruangan = {"nama": "","deskripsi": "", "harga": 0.0,"fakultas": "","penjaga": data.userData.user_id
+      ,"picture": this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,') };
     this.ori = this.ruangan.picture;
   }
   batal(){

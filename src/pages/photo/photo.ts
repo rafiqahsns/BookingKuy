@@ -13,6 +13,7 @@ import { AuthService } from "../../providers/auth-service/auth-service";
   templateUrl: "photo.html"
 })
 export class PhotoPage {
+  ori : any;
   public photos: any;
   public base64Image: string;
   public fileImage: string;
@@ -108,13 +109,7 @@ export class PhotoPage {
           let alert = this.alertCtrl.create({
             title: 'Gagal!',
             subTitle:'Mohon masukan gambar berformat PNG atau JPG',
-            buttons: [{
-              text: "Ok",
-              handler: () => {
-                this.ruangan.picture = this.ori;
-                this.show = false;
-              }
-            }]
+            buttons: ["OK"]
           });
           alert.present();
           return;
