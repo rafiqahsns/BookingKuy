@@ -8,9 +8,9 @@
 
 ~~3.Kelarin riwayat penyewa.~~
 
-~~.Kelarin edit ruangan.~~
+~~4.Kelarin edit ruangan.~~
 
-5.Kelarin tambah ruangan
+~~5.Kelarin tambah ruangan~~
 
 6.Kelarin edit akun
 
