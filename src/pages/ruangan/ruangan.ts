@@ -75,19 +75,8 @@ export class RuanganPage {
       console.log("Selected Item", item);
       this.authService.postData(this.ruanganData,'item').then((result) => {
         this.responseData = result;
-        this.authService.postData(this.responseData.userData.nama, "ruanganImage").then(
-          (res) => {
-            this.responseData2 = res;
-            this.responseData.userData.picture = this.responseData2.image.picture;
-            if(this.responseData.userData){
-              localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData));
-              this.navCtrl.push(WaktuNextPage);
-            }
-          },
-          err => {
-              console.log('error fetching image');
-            }
-          );
+        localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData));
+        this.navCtrl.push(WaktuNextPage);
 
         if(this.responseData.userData){
         }

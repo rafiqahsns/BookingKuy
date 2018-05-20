@@ -52,9 +52,9 @@ export class DetailPinjamPage {
     console.log('ionViewDidLoad DetailPinjamPage');
   }
   done(){
-    this.pinjamData.ruangan = this.ruanganDetails.nama;
+    this.pinjamData.ruangan = this.ruanganDetails.id_ruangan;
     this.pinjamData.date = this.pinjamDate;
-    this.pinjamData.penyewa = this.userDetails.name;
+    this.pinjamData.penyewa = this.userDetails.user_id;
     this.pinjamData.penjaga = this.ruanganDetails.penjaga;
     var i;
     var check=0;

@@ -30,7 +30,7 @@ import { PhotoPage } from '../pages/photo/photo';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
 import { StaffRegisterPage } from '../pages/staff-register/staff-register';
-
+import { StaffTambahRuanganPage } from '../pages/staff-tambah-ruangan/staff-tambah-ruangan';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,8 @@ import { StaffRegisterPage } from '../pages/staff-register/staff-register';
     SettingsPage,
     PhotoPage,
     EditRuanganPage,
-    StaffRegisterPage
+    StaffRegisterPage,
+    StaffTambahRuanganPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -84,7 +85,8 @@ import { StaffRegisterPage } from '../pages/staff-register/staff-register';
     SettingsPage,
     PhotoPage,
     EditRuanganPage,
-    StaffRegisterPage
+    StaffRegisterPage,
+    StaffTambahRuanganPage
   ],
   providers: [
     StatusBar,

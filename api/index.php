@@ -17,7 +17,7 @@ $app->post('/ruangan', 'ruangan');
 $app->post('/editRuangan', 'editRuangan');
 $app->post('/ruanganImage', 'ruanganImage');
 $app->post('/listRuangan', 'listRuangan');
-
+$app->post('/tambahRuangan', 'tambahRuangan');
 /*
 NOTES :
 - JANGAN LUPA NAMBAHIN $app->post SETIAP BIKIN FUNGSI BARU
@@ -34,7 +34,7 @@ function item(){
   try {
     $db = getDB();
     $userView ='';
-    $sql = "SELECT * FROM ruangan WHERE nama=:nama ";
+    $sql = "SELECT ruangan.id_ruangan, ruangan.nama, ruangan.deskripsi, ruangan.fakultas, ruangan.penjaga, ruangan.harga, ruangan.picture, users.name FROM ruangan INNER JOIN users ON ruangan.penjaga=users.user_id WHERE nama=:nama ";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->execute();
@@ -63,7 +63,7 @@ function ruangan(){
     $userView ='';
     $sql = "SELECT * FROM ruangan WHERE penjaga=:penjaga";
     $stmt = $db->prepare($sql);
-    $stmt->bindParam("penjaga", $data->penjaga, PDO::PARAM_STR);
+    $stmt->bindParam("penjaga", $data->penjaga, PDO::PARAM_INT);
     $stmt->execute();
     $userView = $stmt->fetchAll(PDO::FETCH_OBJ);
     $db = null;
@@ -91,6 +91,32 @@ function editRuangan(){
     $stmt->bindParam("deskripsi", $data->deskripsi, PDO::PARAM_STR);
     $stmt->bindParam("fakultas", $data->fakultas, PDO::PARAM_STR);
     $stmt->bindParam("id_ruangan", $data->id_ruangan, PDO::PARAM_INT);
+    $stmt->bindParam("harga", $data->harga, PDO::PARAM_STR);
+    $stmt->bindParam("picture", $data->picture, PDO::PARAM_STR);
+    $stmt->bindParam("kapasitas", $data->kapasitas, PDO::PARAM_INT);
+    $stmt->execute();
+    $db = null;
+    $data = json_encode($data);
+    echo '{"hasil": ' .$data . '}';
+       
+  }
+  catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+  }
+
+}
+
+function tambahRuangan(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+  try {
+    $db = getDB();
+    $sql = "INSERT INTO ruangan (nama,deskripsi,harga,fakultas,penjaga,picture,kapasitas) VALUES (:nama,:deskripsi,:harga,:fakultas,:penjaga,:picture,:kapasitas)";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
+    $stmt->bindParam("deskripsi", $data->deskripsi, PDO::PARAM_STR);
+    $stmt->bindParam("fakultas", $data->fakultas, PDO::PARAM_STR);
+    $stmt->bindParam("penjaga", $data->penjaga, PDO::PARAM_INT);
     $stmt->bindParam("harga", $data->harga, PDO::PARAM_STR);
     $stmt->bindParam("picture", $data->picture, PDO::PARAM_STR);
     $stmt->bindParam("kapasitas", $data->kapasitas, PDO::PARAM_INT);
@@ -350,7 +376,7 @@ function pinjam(){
     $db = getDB();
     $sql = "SELECT ruangan, tanggal, waktu FROM history WHERE ruangan= :ruangan AND tanggal= :tanggal AND waktu = :waktu";
     $stmt = $db->prepare($sql);
-    $stmt->bindParam("ruangan", $ruangan, PDO::PARAM_STR);
+    $stmt->bindParam("ruangan", $ruangan, PDO::PARAM_INT);
     $stmt->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
     $stmt->bindParam("waktu", $waktu, PDO::PARAM_STR);
     $stmt->execute();
@@ -359,11 +385,11 @@ function pinjam(){
     if(empty($hasil)){
         $sql = "INSERT INTO history (ruangan,tanggal,waktu,penyewa,penjaga) VALUES (:ruangan,:tanggal,:waktu,:penyewa,:penjaga)";
         $stmt1 = $db->prepare($sql);
-        $stmt1->bindParam("ruangan", $ruangan, PDO::PARAM_STR);
+        $stmt1->bindParam("ruangan", $ruangan, PDO::PARAM_INT);
         $stmt1->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
         $stmt1->bindParam("waktu", $waktu, PDO::PARAM_STR);
-        $stmt1->bindParam("penyewa", $penyewa, PDO::PARAM_STR);
-        $stmt1->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
+        $stmt1->bindParam("penyewa", $penyewa, PDO::PARAM_INT);
+        $stmt1->bindParam("penjaga", $penjaga, PDO::PARAM_INT);
         $stmt1->execute();
 
         $sql = "SELECT * FROM history WHERE ruangan = :ruangan AND tanggal= :tanggal AND waktu = :waktu";
@@ -388,7 +414,9 @@ function history(){
   $data = json_decode($request->getBody());
   $penjaga = $data->penjaga;
   $db = getDB();
-  $sql = "SELECT history_date, ruangan, tanggal, waktu, penyewa, status FROM history WHERE penjaga = :penjaga or penyewa=:penjaga ORDER BY history_date DESC LIMIT 10";
+  $sql = "SELECT history.history_date, history.ruangan, history.tanggal, history.waktu, history.penyewa, history.status, users.name 
+FROM history INNER JOIN users ON history.penyewa=users.user_id
+WHERE history.penjaga = :penjaga or history.penyewa=:penjaga ORDER BY history_date DESC LIMIT 10";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("penjaga", $penjaga, PDO::PARAM_STR);
   $stmt->execute();

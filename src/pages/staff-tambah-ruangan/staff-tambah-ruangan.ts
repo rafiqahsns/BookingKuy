@@ -6,7 +6,7 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from "@ionic-native/camera";
 /**
- * Generated class for the EditRuanganPage page.
+ * Generated class for the StaffTambahRuanganPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,19 +14,19 @@ import { Camera, CameraOptions } from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
-  selector: 'page-edit-ruangan',
-  templateUrl: 'edit-ruangan.html',
+  selector: 'page-staff-tambah-ruangan',
+  templateUrl: 'staff-tambah-ruangan.html',
 })
-export class EditRuanganPage {
+export class StaffTambahRuanganPage {
   responseData : any;
-  ruangan : any;
-  ori : any;
+  ruangan = {"nama": "","deskripsi": "", "harga": 0.0,"fakultas": "","penjaga":0 ,"picture": {} };
+  ori = {};
   show = false;
   constructor(public navCtrl: NavController, public authService:AuthService, public navParams: NavParams
   , private sanitizer: DomSanitizer, public alertCtrl: AlertController, private camera: Camera) {
-    const data = JSON.parse(localStorage.getItem('ruanganDetails'));
-    this.ruangan = data;
-    this.ruangan.picture = this.sanitizer.bypassSecurityTrustUrl(this.ruangan.picture.changingThisBreaksApplicationSecurity)
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.ruangan.penjaga = data.userData.user_id;
+    this.ruangan.picture = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,');
     this.ori = this.ruangan.picture;
   }
   batal(){
@@ -49,16 +49,14 @@ export class EditRuanganPage {
     confirm.present();
   }
   save(){
-    var pic = this.ruangan.picture.changingThisBreaksApplicationSecurity;
     var send = this.ruangan;
-    send.picture = pic;
-    send.picture = send.picture.slice(22,send.picture.length);
-    this.authService.postData(send,'editRuangan').then((result) => {
+    send.picture = send.picture.changingThisBreaksApplicationSecurity.slice(22,send.picture.length);
+    this.authService.postData(send,'tambahRuangan').then((result) => {
      this.responseData = result;
      if(this.responseData.hasil){
      localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData.hasil));
      let alert = this.alertCtrl.create({
-       title: 'Perubahan tersimpan',
+       title: 'Ruangan Berhasil Ditambahkan.',
        buttons: ['Ok']
      });
      alert.present();
@@ -66,7 +64,7 @@ export class EditRuanganPage {
      }
      else{
        let alert = this.alertCtrl.create({
-         title: 'Perubahan Gagal',
+         title: 'Ruangan Berhasil Ditambahkan.',
          subTitle: this.responseData.error,
          buttons: ['Ok']
        });
@@ -77,7 +75,7 @@ export class EditRuanganPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditRuanganPage');
+    console.log('ionViewDidLoad TambahRuanganPage');
   }
 
   browsePhoto() {
@@ -122,6 +120,8 @@ export class EditRuanganPage {
       }
     );
   }
-
+  test(){
+    console.log(this.ruangan);
+  }
 
 }

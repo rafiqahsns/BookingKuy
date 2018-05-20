@@ -101,7 +101,25 @@ export class PhotoPage {
 
     this.camera.getPicture(options).then(
       imageData => {
-        this.base64Image = "data:image/jpeg;base64," + imageData;
+        var pic = 'data:image/jpg;base64,'+imageData;
+        if(pic.slice(22,27) != 'iVBOR' && pic.slice(22,27) != '/9j/4'){
+          console.log('slice:');
+          console.log(pic.slice(22,27));
+          let alert = this.alertCtrl.create({
+            title: 'Gagal!',
+            subTitle:'Mohon masukan gambar berformat PNG atau JPG',
+            buttons: [{
+              text: "Ok",
+              handler: () => {
+                this.ruangan.picture = this.ori;
+                this.show = false;
+              }
+            }]
+          });
+          alert.present();
+          return;
+        }
+        this.base64Image = pic;
         this.photos.push(this.base64Image);
         this.photos.reverse();
         this.sendData(imageData);

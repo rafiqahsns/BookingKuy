@@ -36,7 +36,7 @@ export class StaffHistoryPage {
     private authService: AuthService, private sanitizer: DomSanitizer) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
-    this.userData.penjaga = this.userDetails.name;
+    this.userData.penjaga = this.userDetails.user_id;
     //this.date = moment().format('YYYY-MM-DD HH:mm:ss');
     //this.date = moment(this.date).format('dddd');
     //this.time = Number(moment().format('HHmmss'));
@@ -148,7 +148,8 @@ export class StaffHistoryPage {
   refresh(){
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
-    this.userData.penjaga = this.userDetails.name;
+    this.userData.penjaga = this.userDetails.user_id;
+    console.log(this.userData);
     //this.date = moment().format('YYYY-MM-DD HH:mm:ss');
     //this.date = moment(this.date).format('dddd');
     //this.time = Number(moment().format('HHmmss'));
