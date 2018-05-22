@@ -18,6 +18,8 @@ $app->post('/editRuangan', 'editRuangan');
 $app->post('/ruanganImage', 'ruanganImage');
 $app->post('/listRuangan', 'listRuangan');
 $app->post('/tambahRuangan', 'tambahRuangan');
+$app->post('/historyDel', 'historyDel');
+$app->post('/historyAcc', 'historyAcc');
 /*
 NOTES :
 - JANGAN LUPA NAMBAHIN $app->post SETIAP BIKIN FUNGSI BARU
@@ -441,6 +443,40 @@ function listRuangan(){
   echo '{"hasil": ' . $hasil . '}';
   $db = null;
 }
+
+function historyAcc(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+  $db = getDB();
+  $sql = "UPDATE history SET status=1 WHERE history_date=:data";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("data", $data, PDO::PARAM_STR);
+  $stmt->execute();
+  $hasil = "success";
+  $hasil = json_encode($hasil);
+  echo '{"hasil": ' . $hasil . '}';
+  $db = null;
+}
+
+function historyDel(){
+  $request = \Slim\Slim::getInstance()->request();
+  $data = json_decode($request->getBody());
+  $db = getDB();
+  $sql = "DELETE FROM history WHERE history_date=:data";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("data", $data, PDO::PARAM_STR);
+  $stmt->execute();
+  $hasil = "success";
+  $hasil = json_encode($hasil);
+  echo '{"hasil": ' . $hasil . '}';
+  $db = null;
+}
+
+
+
+
+
+
 
 
 
