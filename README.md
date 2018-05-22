@@ -14,7 +14,7 @@
 
 6.Kelarin edit akun
 
-7.Benerin kalender di page "Cari berdasarkan ruangan."
+~~7.Benerin kalender di page "Cari berdasarkan ruangan."~~
 
 8.Checkbox jam di disable kalau udah ada yang minjem di tanggal segitu.
 
