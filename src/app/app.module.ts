@@ -31,6 +31,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 import { EditRuanganPage } from '../pages/edit-ruangan/edit-ruangan';
 import { StaffRegisterPage } from '../pages/staff-register/staff-register';
 import { StaffTambahRuanganPage } from '../pages/staff-tambah-ruangan/staff-tambah-ruangan';
+import { StaffHistoryDetailPage } from '../pages/staff-history-detail/staff-history-detail';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { StaffTambahRuanganPage } from '../pages/staff-tambah-ruangan/staff-tamb
     PhotoPage,
     EditRuanganPage,
     StaffRegisterPage,
-    StaffTambahRuanganPage
+    StaffTambahRuanganPage,
+    StaffHistoryDetailPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -86,7 +88,8 @@ import { StaffTambahRuanganPage } from '../pages/staff-tambah-ruangan/staff-tamb
     PhotoPage,
     EditRuanganPage,
     StaffRegisterPage,
-    StaffTambahRuanganPage
+    StaffTambahRuanganPage,
+    StaffHistoryDetailPage
   ],
   providers: [
     StatusBar,

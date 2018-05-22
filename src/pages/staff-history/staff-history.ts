@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { StaffHistoryDetailPage } from '../staff-history-detail/staff-history-detail';
 import moment from 'moment';
 
 /**
@@ -74,7 +75,7 @@ export class StaffHistoryPage {
         //console.log(this.Temp[0]);
         //console.log(this.date);
         //console.log(this.time);
-        this.log[i].history_date = this.date[2] + "-" + this.date[1] + "-" + this.date[0] + " " + this.Temp[1];
+        this.log[i].history_date = this.date[0] + "-" + this.date[1] + "-" + this.date[2] + " " + this.Temp[1];
         //console.log(this.day);
 
         this.Temp = this.log[i].tanggal.split("-").join();
@@ -187,7 +188,7 @@ export class StaffHistoryPage {
         //console.log(this.Temp[0]);
         //console.log(this.date);
         //console.log(this.time);
-        this.log[i].history_date = this.date[2] + "-" + this.date[1] + "-" + this.date[0] + " " + this.Temp[1];
+        this.log[i].history_date = this.date[0] + "-" + this.date[1] + "-" + this.date[2] + " " + this.Temp[1];
         //console.log(this.day);
 
         this.Temp = this.log[i].tanggal.split("-").join();
@@ -246,4 +247,8 @@ export class StaffHistoryPage {
       // Error log
     });
       }
+    detail(selected){
+      localStorage.setItem('pinjamDetails', JSON.stringify(selected));
+      this.navCtrl.push(StaffHistoryDetailPage);
+    }
 }

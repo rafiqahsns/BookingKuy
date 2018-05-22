@@ -16,13 +16,14 @@
       <p><span style="color: #c75b39">{{list.name}}</span> memesan ruangan untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
         pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
         <p>...</p>
-      <p>{{list.status}}</p>
+      <p style="color: #c75b39">{{list.status}}</p>
       <ion-note item-end>{{list.history_date}}</ion-note>
     </div>
     <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
     <p><span style="color: #c75b39">{{list.name}}</span> memesan ruangan untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
       pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
-    <p>{{list.status}}</p>
+      <button ion-button block (click)="detail(list)">Detail</button><br>
+    <p style="color: #c75b39">{{list.status}}</p>
   </div>
     </ion-item>
   </ion-list>

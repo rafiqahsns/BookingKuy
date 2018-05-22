@@ -16,13 +16,13 @@
       <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
         pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
         <p>...</p>
-      <p>Status : {{list.status}}</p>
+      <p style="color: #c75b39">Status : {{list.status}}</p>
       <ion-note item-end>Tanggal memesan : {{list.history_date}}</ion-note>
     </div>
     <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
       <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
       pada pukul <span style="color: #c75b39">Tanggal memesan : {{list.waktu}}</span></p>
-    <p>Status : {{list.status}}</p>
+    <p style="color: #c75b39">Status : {{list.status}}</p>
   </div>
     </ion-item>
   </ion-list>
