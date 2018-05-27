@@ -36,6 +36,10 @@
               <p>NIP: 9283749287394</p>
               <p>0818022233343</p>
             </ion-item><br>
+            <ion-item>
+              <ion-label floating>Tujuan Peminjaman: </ion-label>
+              <ion-textarea [(ngModel)]="pinjamData.alasan"></ion-textarea>
+            </ion-item>
             <button ion-button float-right (click)="done()">Pinjam</button>
             <br><br><br>
         </ion-card-content>

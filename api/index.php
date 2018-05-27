@@ -375,6 +375,7 @@ function pinjam(){
     $waktu = $data->time;
     $penyewa = $data->penyewa;
     $penjaga = $data->penjaga;
+    $alasan = $data->alasan;
     $db = getDB();
     $sql = "SELECT ruangan, tanggal, waktu FROM history WHERE ruangan= :ruangan AND tanggal= :tanggal AND waktu = :waktu";
     $stmt = $db->prepare($sql);
@@ -385,13 +386,14 @@ function pinjam(){
     $hasil = $stmt->fetch(PDO::FETCH_OBJ);
 
     if(empty($hasil)){
-        $sql = "INSERT INTO history (ruangan,tanggal,waktu,penyewa,penjaga) VALUES (:ruangan,:tanggal,:waktu,:penyewa,:penjaga)";
+        $sql = "INSERT INTO history (ruangan,tanggal,waktu,penyewa,penjaga,alasan) VALUES (:ruangan,:tanggal,:waktu,:penyewa,:penjaga,:alasan)";
         $stmt1 = $db->prepare($sql);
         $stmt1->bindParam("ruangan", $ruangan, PDO::PARAM_INT);
         $stmt1->bindParam("tanggal", $tanggal, PDO::PARAM_STR);
         $stmt1->bindParam("waktu", $waktu, PDO::PARAM_STR);
         $stmt1->bindParam("penyewa", $penyewa, PDO::PARAM_INT);
         $stmt1->bindParam("penjaga", $penjaga, PDO::PARAM_INT);
+	$stmt1->bindParam("alasan", $alasan, PDO::PARAM_STR);
         $stmt1->execute();
 
         $sql = "SELECT * FROM history WHERE ruangan = :ruangan AND tanggal= :tanggal AND waktu = :waktu";
@@ -416,7 +418,7 @@ function history(){
   $data = json_decode($request->getBody());
   $penjaga = $data->penjaga;
   $db = getDB();
-  $sql = "SELECT history.history_date, history.ruangan, history.tanggal, history.waktu, history.penyewa, history.status, users.name 
+  $sql = "SELECT history.history_date, history.ruangan, history.tanggal, history.waktu, history.penyewa, history.status, history.alasan, users.name 
 FROM history INNER JOIN users ON history.penyewa=users.user_id
 WHERE history.penjaga = :penjaga or history.penyewa=:penjaga ORDER BY history_date DESC LIMIT 10";
   $stmt = $db->prepare($sql);

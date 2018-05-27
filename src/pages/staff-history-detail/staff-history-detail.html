@@ -14,16 +14,21 @@
 
 
 <ion-content padding>
+  <h2>{{pinjamDetails.nama}}</h2>
   <ion-avatar item-start>
     <img [src]="pinjamDetails.picture">
   </ion-avatar>
-  <h2>{{pinjamDetails.nama}}</h2>
-  <div style="white-space : normal;">
-  <p><span style="color: #c75b39">{{pinjamDetails.name}}</span> memesan ruangan untuk tanggal
+  <ion-item>
+  <p style="white-space : normal"><span style="color: #c75b39">{{pinjamDetails.name}}</span> memesan ruangan untuk tanggal
     <span style="color: #c75b39">{{pinjamDetails.tanggal}}</span>
     pada pukul <span style="color: #c75b39">{{pinjamDetails.waktu}}</span></p>
+  </ion-item>
+  <ion-item>
+      <ion-title>Tujuan Peminjaman: </ion-title>
+      <p style="white-space : normal">{{pinjamDetails.alasan}}</p>
+  </ion-item>
+
     <button *ngIf="pinjamDetails.status=='Menunggu konfirmasi'" ion-button block (click)="confirm(pinjamDetails)">konfirmasi</button>
     <button *ngIf="pinjamDetails.status=='Menunggu konfirmasi'" ion-button block (click)="ignore(pinjamDetails)">abaikan</button>
   <p>{{pinjamDetails.status}}</p>
-</div>
 </ion-content>

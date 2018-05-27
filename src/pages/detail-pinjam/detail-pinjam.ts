@@ -22,7 +22,7 @@ export class DetailPinjamPage {
   harga: number = 0;
   responseData : any;
   userDetails: any;
-  pinjamData = {"ruangan": "","date": "","time": "","penyewa": "", "penjaga":""};
+  pinjamData = {"ruangan": "","date": "","time": "","penyewa": "", "penjaga":"","alasan":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
     private alertCtrl:AlertController, public authService: AuthService, private sanitizer: DomSanitizer) {
