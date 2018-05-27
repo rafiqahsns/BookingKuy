@@ -36,7 +36,7 @@ function item(){
   try {
     $db = getDB();
     $userView ='';
-    $sql = "SELECT ruangan.id_ruangan, ruangan.nama, ruangan.deskripsi, ruangan.fakultas, ruangan.penjaga, ruangan.harga, ruangan.picture, users.name FROM ruangan INNER JOIN users ON ruangan.penjaga=users.user_id WHERE nama=:nama ";
+    $sql = "SELECT ruangan.id_ruangan, ruangan.nama, ruangan.deskripsi, ruangan.fakultas, ruangan.penjaga, ruangan.harga, ruangan.picture, users.name , users.kontak FROM ruangan INNER JOIN users ON ruangan.penjaga=users.user_id WHERE nama=:nama ";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->execute();
@@ -184,7 +184,7 @@ function signup() {
     $name=$data->name;
     $username=$data->username;
     $password=$data->password;
-
+    $kontak=$data->kontak;
     try {
 
         $username_check = preg_match('~^[A-Za-z0-9_]{3,20}$~i', $username);
@@ -209,13 +209,14 @@ function signup() {
             {
 
                 /*Inserting user values*/
-                $sql1="INSERT INTO users(username,password,email,name)VALUES(:username,:password,:email,:name)";
+                $sql1="INSERT INTO users(username,password,email,name,kontak)VALUES(:username,:password,:email,:name,:kontak)";
                 $stmt1 = $db->prepare($sql1);
                 $stmt1->bindParam("username", $username,PDO::PARAM_STR);
                 $password=hash('sha256',$data->password);
                 $stmt1->bindParam("password", $password,PDO::PARAM_STR);
                 $stmt1->bindParam("email", $email,PDO::PARAM_STR);
                 $stmt1->bindParam("name", $name,PDO::PARAM_STR);
+		$stmt1->bindParam("kontak", $kontak,PDO::PARAM_STR);
                 $stmt1->execute();
 
                 $userData=internalUserDetails($email);
