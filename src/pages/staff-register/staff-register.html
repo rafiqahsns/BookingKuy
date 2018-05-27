@@ -23,10 +23,15 @@
         </ion-item>
 
         <ion-item>
+          <ion-label stacked>No. HP</ion-label>
+          <ion-input type="text" pattern="[0-9]{10,13}"></ion-input>
+        </ion-item>
+
+        <ion-item>
           <ion-label stacked>Username</ion-label>
           <ion-input type="text" [(ngModel)]="userData.username"></ion-input>
         </ion-item>
-
+        
         <ion-item>
           <ion-label stacked>Password</ion-label>
           <ion-input type="{{type}}" [(ngModel)]="userData.password"></ion-input>
