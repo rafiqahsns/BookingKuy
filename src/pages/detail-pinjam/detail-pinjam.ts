@@ -22,7 +22,7 @@ export class DetailPinjamPage {
   harga: number = 0;
   responseData : any;
   userDetails: any;
-  pinjamData = {"ruangan": "","date": "","time": "","penyewa": "", "penjaga":"","alasan":""};
+  pinjamData = {"ruangan": "","date": "","time": "","penyewa": "", "penjaga":"","alasan":"","kontak":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App,
     private alertCtrl:AlertController, public authService: AuthService, private sanitizer: DomSanitizer) {
@@ -52,6 +52,14 @@ export class DetailPinjamPage {
     console.log('ionViewDidLoad DetailPinjamPage');
   }
   done(){
+    if(this.pinjamData.alasan == ""){
+      let alert = this.alertCtrl.create({
+        title: 'Harap isi alasan peminjaman.',
+        buttons: ['Ok']
+      });
+      alert.present();
+      return;
+    }
     this.pinjamData.ruangan = this.ruanganDetails.id_ruangan;
     this.pinjamData.date = this.pinjamDate;
     this.pinjamData.penyewa = this.userDetails.user_id;

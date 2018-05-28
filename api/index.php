@@ -36,7 +36,7 @@ function item(){
   try {
     $db = getDB();
     $userView ='';
-    $sql = "SELECT ruangan.id_ruangan, ruangan.nama, ruangan.deskripsi, ruangan.fakultas, ruangan.penjaga, ruangan.harga, ruangan.picture, users.name , users.kontak FROM ruangan INNER JOIN users ON ruangan.penjaga=users.user_id WHERE nama=:nama ";
+    $sql = "SELECT ruangan.id_ruangan, ruangan.nama, ruangan.deskripsi, ruangan.fakultas, ruangan.penjaga, ruangan.harga, ruangan.picture, users.name , users.kontak FROM ruangan INNER JOIN users ON ruangan.penjaga=users.user_id WHERE ruangan.nama=:nama";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("nama", $data->nama, PDO::PARAM_STR);
     $stmt->execute();

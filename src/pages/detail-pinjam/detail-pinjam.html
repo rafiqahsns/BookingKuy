@@ -34,12 +34,11 @@
                 <img src="assets/imgs/no_pp.jpg" class="circle-pic">
               </ion-thumbnail>
               <h2>{{ruanganDetails.name}}</h2>
-              <p>NIP: 9283749287394</p>
-              <p>0818022233343</p>
+              <p>{{ruanganDetails.kontak}}</p>
             </ion-item><br>
             <ion-item>
               <ion-label floating>Tujuan Peminjaman: </ion-label>
-              <ion-textarea [(ngModel)]="pinjamData.alasan"></ion-textarea>
+              <ion-textarea [(ngModel)]="pinjamData.alasan" required></ion-textarea>
             </ion-item>
             <button ion-button float-right (click)="done()">Pinjam</button>
             <br><br><br>

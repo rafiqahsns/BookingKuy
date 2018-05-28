@@ -76,6 +76,8 @@ export class RuanganPage {
       this.authService.postData(this.ruanganData,'item').then((result) => {
         this.responseData = result;
         localStorage.setItem('ruanganDetails', JSON.stringify(this.responseData));
+        console.log('asdasd');
+        console.log(this.responseData);
         this.navCtrl.push(WaktuNextPage);
 
         if(this.responseData.userData){

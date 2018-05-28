@@ -19,14 +19,15 @@
     <ion-item>
       <h1>{{list.nama}}</h1>
       <h3>{{list.fakultas}}</h3>
-      <p>{{list.harga}}</p><br>
     </ion-item>
 
       <img [src]="list.picture" >
 
     <ion-card-content>
-      <p>Deskripsi Ruangan</p>
+      
+      <p>Deskripsi Ruangan:</p>
       <p>{{list.deskripsi}}</p>
+      <p>Harga: {{list.harga}}</p>
       <p>Kapasitas : {{list.kapasitas}}</p>
     </ion-card-content>
 
