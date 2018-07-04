@@ -10,7 +10,7 @@ import { AlertController } from 'ionic-angular';
 })
 export class StudentRegisterPage {
   responseData : any;
-  userData = {"username": "","password": "", "name": "","email": "", "tipe":0 };
+  userData = {"username": "","password": "", "name": "","email": "", "tipe":0, "kontak":"" };
   public type = 'password';
   public showPass = false;
 

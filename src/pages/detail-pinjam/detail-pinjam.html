@@ -25,7 +25,6 @@
             Detail: {{ruanganDetails.deskripsi}}<br><br>
             Tanggal Pinjam: {{pinjamDate}}<br>
             Waktu Pinjam: {{pinjamTime}}<br>
-            Tujuan Peminjaman:<br>
             Harga Sewa: {{harga}}<br>
             Penanggung Jawab:<br>
           </p>
@@ -37,7 +36,7 @@
               <p>{{ruanganDetails.kontak}}</p>
             </ion-item><br>
             <ion-item>
-              <ion-label floating>Tujuan Peminjaman: </ion-label>
+              <ion-label floating>Alasan Peminjaman: </ion-label>
               <ion-textarea [(ngModel)]="pinjamData.alasan" required></ion-textarea>
             </ion-item>
             <button ion-button float-right (click)="done()">Pinjam</button>
