@@ -34,18 +34,26 @@ export class StudentLoginPage {
       this.responseData = result;
 
       console.log(this.responseData);
-      if(this.responseData.userData){
+      if(this.responseData.userData && this.responseData.userData.tipe == 0){
         localStorage.setItem('userData', JSON.stringify(this.responseData));
         this.navCtrl.push(TabsPage);
       }
-      else{
-        let alert = this.alertCtrl.create({
+      else if(this.responseData.userData.tipe == 1){
+      let alert = this.alertCtrl.create({
           title: 'LoginGagal',
-          subTitle: 'Username atau password salah.',
+          subTitle: 'Silahkan gunakan akun mahasiswa.',
           buttons: ['Ok']
         });
       alert.present();
       }
+        else{
+          let alert = this.alertCtrl.create({
+            title: 'LoginGagal',
+            subTitle: 'Username atau password salah.',
+            buttons: ['Ok']
+          });
+        alert.present();
+        }
     }, (err) => {
       // Error log
     });
