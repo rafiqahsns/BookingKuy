@@ -18,7 +18,7 @@ import { StaffLoginPage } from '../staff-login/staff-login';
 export class StaffRegisterPage {
 
   responseData : any;
-  userData = {"username": "","password": "", "name": "","email": "", "tipe":1, "kotak":"" };
+  userData = {"username": "","password": "", "name": "","email": "", "tipe":1, "kontak":"" };
   public type = 'password';
   public showPass = false;
 
