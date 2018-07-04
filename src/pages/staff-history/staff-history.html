@@ -4,6 +4,9 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="list-avatar-page">
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-list>
 
 
@@ -12,21 +15,15 @@
         <img [src]="list.picture">
       </ion-avatar>
       <h2>{{list.nama}}</h2>
-      <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >
-      <p><span style="color: #c75b39">{{list.name}}</span> memesan ruangan untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
-        pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
-        <p>...</p>
-      <p style="color: #c75b39">{{list.status}}</p>
-      <ion-note item-end>{{list.history_date}}</ion-note>
-    </div>
-    <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
+     
+    <div style="white-space : normal;"  >
     <p><span style="color: #c75b39">{{list.name}}</span> memesan ruangan untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
-      pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
-      <button ion-button block (click)="detail(list)">Detail</button><br>
-    <p style="color: #c75b39">{{list.status}}</p>
+      pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p><br>
+      <p style="color: #c75b39">{{list.status}}</p><br>
+      <button ion-button block (click)="detail(list)">Detail</button>
+    
   </div>
     </ion-item>
   </ion-list>
-  <button class="center" (click)="refresh()"><ion-icon name="ios-refresh-circle-outline" style="font-size:32px;"></ion-icon></button>
-
+  
 </ion-content>

@@ -4,6 +4,9 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="list-avatar-page">
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
 
 
@@ -12,20 +15,13 @@
         <img [src]="list.picture">
       </ion-avatar>
       <h2>{{list.nama}}</h2>
-      <div style="white-space : nowrap;" *ngIf="list.show" (click)="expand(list)" >
-      <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
-        pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
-        <p>...</p>
-      <p style="color: #c75b39">Status : {{list.status}}</p>
-      <ion-note item-end>Tanggal memesan : {{list.history_date}}</ion-note>
-    </div>
-    <div style="white-space : normal;" *ngIf="list.show == false" (click)="expand(list)" >
+     
+    <div style="white-space : normal;"  >
       <p>Anda telah memesan ruangan ini untuk tanggal <span style="color: #c75b39">{{list.tanggal}}</span>
       pada pukul <span style="color: #c75b39">{{list.waktu}}</span></p>
     <p style="color: #c75b39">Status : {{list.status}}</p>
   </div>
     </ion-item>
   </ion-list>
-  <button class="center" (click)="refresh()"><ion-icon name="ios-refresh-circle-outline" style="font-size:32px;"></ion-icon></button>
-
+  
 </ion-content>

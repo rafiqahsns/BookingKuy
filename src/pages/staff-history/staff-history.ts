@@ -146,7 +146,8 @@ export class StaffHistoryPage {
       list.show = false;
     }else{ list.show = true;}
   }
-  refresh(){
+  refresh(refresher){
+    console.log('Begin async operation', refresher);
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.userData.penjaga = this.userDetails.user_id;
@@ -240,7 +241,7 @@ export class StaffHistoryPage {
           }
         }
     }
-    console.log('finished constructing');
+    refresher.complete();
     this.n = 0;
   }
     }, (err) => {

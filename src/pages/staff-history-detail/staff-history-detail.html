@@ -21,14 +21,13 @@
   <ion-item>
   <p style="white-space : normal"><span style="color: #c75b39">{{pinjamDetails.name}}</span> memesan ruangan untuk tanggal
     <span style="color: #c75b39">{{pinjamDetails.tanggal}}</span>
-    pada pukul <span style="color: #c75b39">{{pinjamDetails.waktu}}</span></p>
+    pada pukul <span style="color: #c75b39">{{pinjamDetails.waktu}}</span></p><br>
+    <p style="white-space : normal">Tujuan Peminjaman:</p>
+    <p style="white-space : normal; color: #c75b39">{{pinjamDetails.alasan}}</p><br>
+    <p>Status:</p>
+    <p style="color: #c75b39" >{{pinjamDetails.status}}</p>
   </ion-item>
-  <ion-item>
-      <ion-title>Tujuan Peminjaman: </ion-title>
-      <p style="white-space : normal">{{pinjamDetails.alasan}}</p>
-  </ion-item>
-
-    <button *ngIf="pinjamDetails.status=='Menunggu konfirmasi'" ion-button block (click)="confirm(pinjamDetails)">konfirmasi</button>
+      <button *ngIf="pinjamDetails.status=='Menunggu konfirmasi'" ion-button block (click)="confirm(pinjamDetails)">konfirmasi</button>
     <button *ngIf="pinjamDetails.status=='Menunggu konfirmasi'" ion-button block (click)="ignore(pinjamDetails)">abaikan</button>
-  <p>{{pinjamDetails.status}}</p>
+  
 </ion-content>

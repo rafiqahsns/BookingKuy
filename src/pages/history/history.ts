@@ -144,7 +144,8 @@ export class HistoryPage {
       list.show = false;
     }else{ list.show = true;}
   }
-  refresh(){
+  refresh(refresher){
+    console.log('Begin async operation', refresher);
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.userData.penjaga = this.userDetails.user_id;
@@ -237,7 +238,8 @@ export class HistoryPage {
           }
         }
     }
-    console.log('finished constructing');
+    
+    refresher.complete();   
     this.n = 0;
   }
     }, (err) => {
