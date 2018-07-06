@@ -33,13 +33,20 @@ export class StaffLoginPage {
   StaffTabsPush(){
     this.authService.postData(this.userData,'login').then((result) => {
     this.responseData = result;
-    if(this.responseData.userData && this.responseData.userData.tipe == 1){
+      if(this.responseData.error){
+          let alert = this.alertCtrl.create({
+            title: 'Login Gagal',
+            subTitle: 'Username atau password salah.',
+            buttons: ['Ok']
+          });
+        alert.present();
+      } else if(this.responseData.userData && this.responseData.userData.tipe == 1){
       localStorage.setItem('userData', JSON.stringify(this.responseData));
       this.navCtrl.push(StaffTabsPage);
     }
     else if(this.responseData.userData.tipe == 0){
       let alert = this.alertCtrl.create({
-        title: 'LoginGagal',
+        title: 'Login Gagal',
         subTitle: 'Silahkan gunakan akun staff.',
         buttons: ['Ok']
       });
@@ -47,7 +54,7 @@ export class StaffLoginPage {
     }
       else{
         let alert = this.alertCtrl.create({
-          title: 'LoginGagal',
+          title: 'Login Gagal',
           subTitle: 'Username atau password salah.',
           buttons: ['Ok']
         });
